@@ -62,7 +62,7 @@ img {
     
     display: flex;
     justify-content: center; /* Center the links */
-    gap: 10px; /* Add some spacing between the buttons */
+    gap: 10px; /* Add some spacing in between the buttons */
 }
 
 /* Unused */
@@ -95,15 +95,16 @@ img {
 }
 
 .content {
-    height: 450px;
-    width: 200px;
+    height: 500px;
+    width: 250px;
     border-style: solid;
     border-radius: 20px;
     float: left;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin-left: 5px;
     margin-right: 5px;
     border-width: 2px;
+    text-align: center;
 
     transition: background-color 0.3s, margin-top 0.3s linear;
 }
@@ -211,4 +212,15 @@ img {
     font-size: 20px;
     text-align: right;
     float: right;
+}
+
+/*
+    A hidden container to ensure the contents tabs animations
+    do not push the footer down and affect the overall website design.
+*/
+#contents-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    height: 500px;
 }
