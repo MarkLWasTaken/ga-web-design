@@ -1,7 +1,16 @@
+* {
+    box-sizing: border-box
+}
+
 body {
     background-color: lightgray;
-    /* margin: 0;
-    padding: 0; */
+    margin: 0;
+    /* padding: 0; */
+    font-family: Verdana, sans-serif;
+}
+
+img {
+    vertical-align: middle;
 }
 
 .black-hyperlink {
@@ -74,12 +83,15 @@ body {
     padding: 10px;
     margin-left: 5px;
     margin-right: 5px;
-    transition: background-color 0.3s;
+
+    transition: background-color 0.3s, transform 0.3s linear;
 }
 
 .menu-button:hover {
     background-color: rgb(170, 170, 40);
-    transition: background-color 0.3s;
+
+    transform: scale(1.15);
+    transition: background-color 0.3s, transform 0.3s linear;
 }
 
 .content {
@@ -92,6 +104,14 @@ body {
     margin-left: 5px;
     margin-right: 5px;
     border-width: 2px;
+
+    transition: background-color 0.3s, margin-top 0.3s linear;
+}
+
+.content:hover {
+
+    transition: background-color 0.3s, margin-top 0.3s linear;
+    margin-top: 10px;
 }
 
 #content1 {
@@ -184,4 +204,11 @@ body {
 
 .padding-bottom {
     padding-bottom: 10%;
+}
+
+#account-container {
+    font-weight: normal;
+    font-size: 20px;
+    text-align: right;
+    float: right;
 }
