@@ -63,6 +63,11 @@ img {
     display: flex;
     justify-content: center; /* Center the links */
     gap: 10px; /* Add some spacing in between the buttons */
+
+    /* Ensures the navigation bar always sticks
+    to the top of the webpage while scrolling*/
+    position: sticky;
+    top: 0;
 }
 
 /* Unused */
@@ -223,4 +228,26 @@ img {
     justify-content: center;
     gap: 50px;
     height: 500px;
+}
+
+.quiz-container {
+    background-color: lightyellow;
+    height: 200px;
+    width: 600px;
+    border-style: solid;
+    border-radius: 20px;
+    display: flex;
+    border-width: 2px;
+}
+
+.quiz-title {
+    font-weight: bold;
+    padding-left: 5%;
+    font-size: 24px;
+}
+
+.quiz-description {
+    padding-left: 10%;
+    font-size: 18px;
+    position: absolute;
 }

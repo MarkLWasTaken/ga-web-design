@@ -19,3 +19,8 @@
 	transition: background-color 0.3s, margin-top 0.3s linear;
     margin-top: 5px;
 }
+
+
+
+Note: Disables right clicking
+<body oncontextmenu="return false">
