@@ -219,11 +219,11 @@ img {
     float: right;
 }
 
-/*
+#contents-container {
+    /*
     A hidden container to ensure the contents tabs animations
     do not push the footer down and affect the overall website design.
-*/
-#contents-container {
+    */
     display: flex;
     justify-content: center;
     gap: 50px;
@@ -232,8 +232,8 @@ img {
 
 .quiz-container {
     background-color: lightyellow;
-    height: 200px;
-    width: 600px;
+    height: 225px;
+    width: 700px;
     border-style: solid;
     border-radius: 20px;
     display: flex;
@@ -249,7 +249,7 @@ img {
 .quiz-description {
     padding-left: 10%;
     font-size: 18px;
-    position: absolute;
+    /* position: absolute; */
 }
 
 input[type="text"] {
@@ -259,3 +259,38 @@ input[type="text"] {
 input[type="submit"] {
     font-size: 18px;
 }
+
+.hidden-table {
+    height: 100px;
+    width: 450px;
+    border: 0px solid;
+    /* border-radius: 20px; */
+}
+
+.attempt-quiz-btn {
+    background-color: lightgreen;
+    height: 50px;
+    width: 150px;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 2px;
+    text-align: center;
+    float: right;
+    /* margin-top: 2%; */
+    /* margin-right: 150%; */
+    /* justify-content: center; */
+    margin-right: -45%;
+    margin-top: 95%;
+    /* position: relative; */
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.attempt-quiz-btn-deco {
+    color: black;
+    text-decoration: none;
+}
+
+/* a[href="#"] {
+    scroll-behavior: smooth;
+} */
