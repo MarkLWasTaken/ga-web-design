@@ -294,3 +294,25 @@ input[type="submit"] {
 /* a[href="#"] {
     scroll-behavior: smooth;
 } */
+
+.tips-container {
+    background-color: lightyellow;
+    height: 225px;
+    width: 700px;
+    border-style: solid;
+    border-radius: 20px;
+    display: flex;
+    border-width: 2px;
+}
+
+.donations-container {
+    background-color: lightyellow;
+    height: 225px;
+    width: 700px;
+    border-style: solid;
+    border-radius: 20px;
+    display: flex;
+    border-width: 2px;
+    display: flex;
+    justify-content: center; /* Center the links */
+}
