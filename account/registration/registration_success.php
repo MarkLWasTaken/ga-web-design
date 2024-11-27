@@ -110,7 +110,7 @@ mysqli_close($connection);
 
         <div id="clear"></div>
 
-        <br><br>
+        <br><br><br><br><br>
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">

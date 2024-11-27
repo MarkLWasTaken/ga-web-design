@@ -120,7 +120,7 @@ mysqli_close($connection);
 
         <h1>Account login</h1>
 
-        <br><br>
+        <br><br><br><br><br>
 
         <!-- TODO-->
         <div id="contents-container">
