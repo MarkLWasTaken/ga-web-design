@@ -8,7 +8,6 @@
     <meta name="author" content="CodingAssessment Group">
     <title>CodingAssesment - Quizzes</title>
     <link href="../css/styles.css" rel="stylesheet">
-    <!-- <link href="slider.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -30,7 +29,7 @@
 
         <div id="menu-buttons">
             <div>
-                <a class="black-hyperlink" href="../index.html">
+                <a class="black-hyperlink" href="../index.php">
                     <div class="menu-button">
                         Home
                     </div>
@@ -44,28 +43,28 @@
                 </a>
             </div>
             <div>
-                <a class="black-hyperlink" href="../tips/index.html">
+                <a class="black-hyperlink" href="../tips/index.php">
                     <div class="menu-button">
                         Tips
                     </div>
                 </a>
             </div>
             <div>
-                <a class="black-hyperlink" href="../donations/index.html">
+                <a class="black-hyperlink" href="../donations/index.php">
                     <div class="menu-button">
                         Donations
                     </div>
                 </a>
             </div>
             <div>
-                <a class="black-hyperlink" href="../contact/index.html">
+                <a class="black-hyperlink" href="../contact/index.php">
                     <div class="menu-button">
                         Contact us
                     </div>
                 </a>
             </div>
             <div>
-                <a class="black-hyperlink" href="../about/index.html">
+                <a class="black-hyperlink" href="../about/index.php">
                     <div class="menu-button">
                         About us
                     </div>
@@ -84,67 +83,6 @@
         <br><br>
 
         <h1>Quizzes</h1>
-
-        <br><br>
-
-        <!-- <div id="slider">The Slider</div> -->
-
-
-
-
-
-        <!-- <div class="slideshow-container">
-
-            <div class="mySlides fade">
-              <div class="numbertext">1 / 3</div>
-              <img src="images/img01.jpg" style="width:100%">
-              <div class="text">Image #1</div>
-            </div>
-
-            <div class="mySlides fade">
-              <div class="numbertext">2 / 3</div>
-              <img src="images/img02.jpg" style="width:100%">
-              <div class="text">Image #2</div>
-            </div>
-
-            <div class="mySlides fade">
-              <div class="numbertext">3 / 3</div>
-              <img src="images/img03.jpg" style="width:100%">
-              <div class="text">Image #3</div>
-            </div>
-
-            <a class="prev" onclick="plusSlides(-1)">❮</a>
-            <a class="next" onclick="plusSlides(1)">❯</a>
-
-            </div>
-            <br>
-
-            <div style="text-align:center">
-              <span class="dot" onclick="currentSlide(1)"></span> 
-              <span class="dot" onclick="currentSlide(2)"></span> 
-              <span class="dot" onclick="currentSlide(3)"></span> 
-            </div>
-
-            <script>
-            let slideIndex = 0;
-            showSlides();
-
-            function showSlides() {
-              let i;
-              let slides = document.getElementsByClassName("mySlides");
-              for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-              }
-              slideIndex++;
-              if (slideIndex > slides.length) {slideIndex = 1}
-              slides[slideIndex-1].style.display = "block";
-              setTimeout(showSlides, 2000); // Change image every 2 seconds
-            }
-            </script> -->
-
-
-
-
 
         <br><br>
 
@@ -185,31 +123,6 @@
             </div>
         </div>
 
-        <br><br>
-
-        <div id="contents-container">
-            <div id="content1" class="content">
-                <br>
-                <img class="content-circle-image" src="../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 1
-            </div>
-
-            <div id="content2" class="content">
-                <br>
-                <img class="content-circle-image" src="../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 2
-            </div>
-
-            <div id="content3" class="content">
-                <br>
-                <img class="content-circle-image" src="../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 3
-            </div>
-        </div>
-
         <div id="clear"></div>
 
         <br><br>
@@ -218,22 +131,22 @@
             <div id="footer-container-2">
                 <p class="footer-text-2">Sitemap</p>
                 <ul>
-                    <a class="white-hyperlink" href="#home" class="white">
+                    <a class="white-hyperlink" href="../index.php" class="white">
                         <li class="padding-bottom">Home</li>
                     </a>
-                    <a class="white-hyperlink" href="#quizzes" class="white">
+                    <a class="white-hyperlink" href="#" class="white">
                         <li class="padding-bottom">Quizzes</li>
                     </a>
-                    <a class="white-hyperlink" href="#tips" class="white">
+                    <a class="white-hyperlink" href="../tips/index.php" class="white">
                         <li class="padding-bottom">Tips</li>
                     </a>
-                    <a class="white-hyperlink" href="#donations" class="white">
+                    <a class="white-hyperlink" href="../donations/index.php" class="white">
                         <li class="padding-bottom">Donations</li>
                     </a>
-                    <a class="white-hyperlink" href="#contact-us" class="white">
+                    <a class="white-hyperlink" href="../contact/index.php" class="white">
                         <li class="padding-bottom">Contact us</li>
                     </a>
-                    <a class="white-hyperlink" href="#about-us" class="white">
+                    <a class="white-hyperlink" href="../about/index.php" class="white">
                         <li class="padding-bottom">About us</li>
                     </a>
                 </ul>
