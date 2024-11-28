@@ -6,8 +6,13 @@
     <meta name="description" content="Free web tutorials for everyone">
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
+
     <title>CodingAssesment - Tips</title>
+
     <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/dropdown-menu.css" rel="stylesheet">
+    <link href="../css/tips.css" rel="stylesheet">
+    <link href="../css/mobile.css" rel="stylesheet">
 </head>
 
 <body>

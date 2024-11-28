@@ -1,0 +1,10 @@
+
+.tips-container {
+    background-color: lightyellow;
+    height: 225px;
+    width: 700px;
+    border-style: solid;
+    border-radius: 20px;
+    display: flex;
+    border-width: 2px;
+}
