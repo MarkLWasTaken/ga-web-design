@@ -76,19 +76,20 @@
             </div>
             <!-- TODO: Need help to fix the dropdown menu. -->
             <div>
-                    <a class="black-hyperlink" href="#">
-                        <div class="dropdown">
+                <a class="black-hyperlink" href="#">
+                    <div class="dropdown">
                         <div class="menu-button">
                             Account &#128308;
                             <!-- Account &#128994;  --> <!-- If user is logged in -->
                         </div>
-                    
+                        <!-- <br> -->
                         <div class="dropdown-content">
-				            <a class="menu" href="account/login/index.php">Login</a>
-				            <a class="menu" href="account/registration/index.php">Register</a>
-			            </div>
-                    </a>
-                </div>
+                            <?php echo "Username";?>
+			                <a class="menu" href="account/login/index.php">Login</a>
+			                <a class="menu" href="account/registration/index.php">Register</a>
+		                </div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -164,21 +165,22 @@
                 <br>
                 <img class="content-circle-image" src="images/img01.jpg" alt="Image #1">
                 <br>
-                Content 1
+                <h3>Free</h3>
             </div>
 
             <div id="content2" class="content">
                 <br>
                 <img class="content-circle-image" src="images/img01.jpg" alt="Image #1">
                 <br>
-                Content 2
+                <h3>Easy to use</h3>
             </div>
 
             <div id="content3" class="content">
                 <br>
                 <img class="content-circle-image" src="images/img01.jpg" alt="Image #1">
                 <br>
-                Content 3
+                <h3>Save the results</h3>
+                <p>Quizzes that were attempted with a user account logged in will be saved into the database.</p>
             </div>
         </div>
 
