@@ -1,18 +1,22 @@
 <?php
 session_start();
+
 // Include the PHP script for connecting to the database (DB).
-include 'connection.php';
+// include '../../php/connection.php';
 
-if (mysqli_query($connection, $query)) {
-    echo "Account succesfully created!";
-    // Redirect to the registration successful page.
-    header("Location: 'registration_success.html'");
-} else {
-    echo "There's an error in creating your account. Please check the registration details and try again.";
-}
+// Query to execute
+// $query ='';
 
-// Ensure the connection to the DB is closed after execution for security reasons.
-mysqli_close($connection);
+// if (mysqli_query($connection, $query)) {
+//     echo "Account succesfully created!";
+//     // Redirect to the registration successful page.
+//     header("Location: 'registration_success.html'");
+// } else {
+//     echo "There's an error in creating your account. Please check the registration details and try again.";
+// }
+
+// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+// mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +28,12 @@ mysqli_close($connection);
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssesment - Account registration</title>
+    <title>CodingAssessment - Account registration</title>
 
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../css/account-registration.css" rel="stylesheet">
+    <link href="../../css/overrides.css" rel="stylesheet">
     <link href="../../css/mobile.css" rel="stylesheet">
 </head>
 
@@ -38,7 +43,8 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo">
+                <!-- <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo"> -->
+                <br><br>
                 CodingAssessment
                 <!-- <span id="account-container">
                     <img class="account-circle-image" src="images/img03.jpg" alt="Account icon" title="Account icon">
@@ -92,33 +98,89 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
+            <!-- TODO: Need help to fix the dropdown menu. -->
             <div>
-                <a class="black-hyperlink" href="#">
+                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <a class="black-hyperlink" href="javascript:void(0)">
+                    <div class="dropdown">
+                        <div class="menu-button">
+                            Account &#128308;
+                            <!-- Account &#128994;  --> <!-- If user is logged in -->
+                        </div>
+                        <!-- <br> -->
+                        <div class="dropdown-content">
+                            <?php echo "Username here";?>
+			                <a class="menu" href="../../account/login/index.php">Login</a>
+			                <a class="menu" href="../../account/registration/index.php">Register</a>
+		                </div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a class="black-hyperlink" href="">
                     <div class="menu-button">
-                        Account &#128308;
-                        <!-- Account &#128994; -->
+                        Admin
                     </div>
                 </a>
             </div>
         </div>
 
-        <br><br>
+        <br><br><br>
 
-        <h1>Account registration</h1>
-
-        <br><br>
-
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
+        <!-- TODO -->
+        <!-- Layout for the registration form. -->
+        <div id="registration-container">
+            <div id="registration-content">
                 <br>
-                <img class="content-circle-image" src="../../images/img01.jpg" alt="Image #1">
+                <h1>Account registration</h1>
                 <br>
-                Content 1
+                <p>Create and register for an account through the forms here.</p>
+                <br>
+
+                <!-- Registration table form -->
+                <form action="#" method="post">
+                    <table id="registration-form">
+                        <tr>
+                            <th>First Name:</th>
+                            <td><input type="text" name="txtFName"></td>
+                        </tr>
+                        <tr>
+                            <th>Last Name:</th>
+                            <td><input type="text" name="txtLName"></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" required></td>
+                        </tr>
+                        <tr>
+                            <th>Password:</th>
+                            <td><input type="password" name="txtPassword" required></td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>
+                                <input type="radio" name="rdoGender" value="Male"> Male <br>
+                                <input type="radio" name="rdoGender" value="Female"> Female <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Country:</th>
+                            <td>
+                                <select name="selCountry">
+                                    <option value="Malaysia">Malaysia</option>
+                                    <option value="Singapore">Singapore</option>
+                                    <option value="Thailand">Thailand</option>
+                                    <option value="Indonesia">Indonesia</option>
+                                    <option value="Philippines">Philippines</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <input class="register-button" type="submit" name="btnRegister" value="Register">
+                </form>
             </div>
         </div>
-
-        <div id="clear"></div>
 
         <br><br><br><br><br>
 
@@ -150,7 +212,7 @@ mysqli_close($connection);
                 <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
-                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br><br>
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
                         <input type="submit" value="Subscribe" class="subscribe-button">
                     </form>
                 </div>

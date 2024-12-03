@@ -14,9 +14,9 @@ body {
     font-family: Verdana, sans-serif;
 }
 
-img {
+/* img {
     vertical-align: middle;
-}
+} */
 
 .black-hyperlink {
     color: black;
@@ -35,6 +35,7 @@ img {
     border-style: solid;
     text-align: center;
     /* margin: auto; */
+    border-radius: 0px 0px 20px 20px;
 }
 
 .header-circle-image {
@@ -73,6 +74,8 @@ img {
     to the top of the webpage while scrolling*/
     position: sticky;
     top: 1%;
+
+    border-radius: 20px;
 }
 
 /* Unused */
@@ -99,6 +102,8 @@ img {
 	-ms-transition: background-color 0.3s, transform 0.3s linear; /* Internet Explorer */
 	-o-transition: background-color 0.3s, transform 0.3s linear; /* Opera < 12.1 */
     transition: background-color 0.3s, transform 0.3s linear;
+    
+    border-radius: 5px;
 }
 
 .menu-button:hover {
@@ -112,6 +117,119 @@ img {
 	-o-transition: background-color 0.3s, transform 0.3s linear; /* Opera < 12.1 */
     transition: background-color 0.3s, transform 0.3s linear;
 }
+
+#clear {
+    clear: both;
+}
+
+#footer-container {
+    background-color: rgb(90, 90, 90);
+    width: 1080px;
+    height: 350px;
+    /* float: right; */
+    /* clear: both; */
+    border-radius: 50px 50px 0px 0px;
+}
+
+#footer-container-2 {
+    padding-top: 3%;
+    float: left;
+}
+
+.footer-text {
+    color: white;
+    padding-left: 5%;
+}
+
+.footer-text-2 {
+    font-weight: bold;
+    text-decoration: underline;
+    padding-left: 5%;
+}
+
+.black-text {
+    color: black;
+}
+
+/* .justify-text {
+    text-align: justify;
+} */
+
+.white-hyperlink {
+    color: white;
+    text-decoration: none;
+}
+
+#footer-container-3 {
+    background-color: lightgray;
+    float: left;
+    text-align: center;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    width: 350px;
+    height: 225px;
+    margin-left: 47%;
+    padding-top: 1%;
+    margin-top: 5%;
+    border-radius: 30px;
+}
+
+.subscribe-textbox {
+    width: 80%;
+    font-size: 16px;
+}
+
+.subscribe-button {
+    width: 80%;
+    font-size: 16px;
+}
+
+.white-hyperlink:hover {
+    text-decoration: underline;
+}
+
+.padding-bottom {
+    padding-bottom: 10%;
+}
+
+#account-container {
+    font-weight: normal;
+    font-size: 20px;
+    text-align: right;
+    float: right;
+}
+
+#contents-container {
+    /*
+    A hidden container to ensure the contents tabs animations (if any)
+    do not push the footer down and affect the overall website design.
+    */
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    height: 500px;
+}
+
+input[type="text"] {
+    font-size: 18px;
+}
+
+input[type="submit"] {
+    font-size: 18px;
+}
+
+.hidden-table {
+    height: 100px;
+    width: 450px;
+    border: 0px solid;
+    /* border-radius: 20px; */
+}
+
+/* a[href="#"] {
+    scroll-behavior: smooth;
+} */
+
 
 .content {
     height: 500px;
@@ -160,113 +278,3 @@ img {
     width: 150px;
     padding: 10px;
 }
-
-#clear {
-    clear: both;
-}
-
-#footer-container {
-    background-color: rgb(90, 90, 90);
-    width: 1080px;
-    height: 350px;
-    /* float: right; */
-    /* clear: both; */
-}
-
-#footer-container-2 {
-    padding-top: 3%;
-    float: left;
-}
-
-.footer-text {
-    color: white;
-    padding-left: 5%;
-}
-
-.footer-text-2 {
-    font-weight: bold;
-    text-decoration: underline;
-    padding-left: 5%;
-}
-
-.black-text {
-    color: black;
-}
-
-/* .justify-text {
-    text-align: justify;
-} */
-
-.white-hyperlink {
-    color: white;
-    text-decoration: none;
-}
-
-#footer-container-3 {
-    background-color: lightgray;
-    float: left;
-    text-align: center;
-    border-style: solid;
-    border-width: 3px;
-    border-color: black;
-    width: 350px;
-    height: 225px;
-    margin-left: 47%;
-    padding-top: 1%;
-    margin-top: 5%;
-}
-
-.subscribe-textbox {
-    width: 80%;
-    font-size: 16px;
-}
-
-.subscribe-button {
-    width: 80%;
-    font-size: 16px;
-}
-
-.white-hyperlink:hover {
-    text-decoration: underline;
-}
-
-.padding-bottom {
-    padding-bottom: 10%;
-}
-
-#account-container {
-    font-weight: normal;
-    font-size: 20px;
-    text-align: right;
-    float: right;
-}
-
-#contents-container {
-    /*
-    A hidden container to ensure the contents tabs animations
-    do not push the footer down and affect the overall website design.
-    */
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    height: 500px;
-}
-
-input[type="text"] {
-    font-size: 18px;
-}
-
-input[type="submit"] {
-    font-size: 18px;
-}
-
-.hidden-table {
-    height: 100px;
-    width: 450px;
-    border: 0px solid;
-    /* border-radius: 20px; */
-}
-
-/* a[href="#"] {
-    scroll-behavior: smooth;
-} */

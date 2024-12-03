@@ -1,37 +1,14 @@
 <?php
 session_start();
+
 // Include the PHP script for connecting to the database (DB).
-include '../../php/connection.php';
+// include '../../php/connection.php';
 
-// Executes the code when the login button is pressed.
-if(isset($_POST['btnLogin'])){
-    // Assigns the variables fetch values from the text fields.
-    $email = $_POST['txtEmail'];
-    $password = $_POST['txtPassword'];
+// Query to execute
+// $query ='';
 
-    // SQL query to fetch data from the DB.
-    $query = "SELECT * FROM users WHERE username='$email' AND password='$password'";
-    // Attempt to connect to the DB and execute the SQL query.
-    $result = mysqli_query($connection, $query);
-    // Verify if the record exists in the DB.
-    if(mysqli_num_rows($result) > 0){
-        // echo "Record found!";
-        while($row=mysqli_fetch_assoc($result)){
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['username'] = $row['username'];
-        }
-        // Redirect to the home page.
-        // header("Location: '../../index.html'");
-        // Redirect to the home page with 5 seconds delay.
-        header('refresh:5; url=../../index.html');
-    } else {
-        echo "The username or password you have entered in incorrect. Please try again.";
-    }
-}
-
-// Ensure the connection to the DB is closed after execution for security reasons.
-mysqli_close($connection);
+// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+// mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +20,12 @@ mysqli_close($connection);
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssesment - Account Login</title>
+    <title>CodingAssessment - Account Login</title>
 
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../css/account-login.css" rel="stylesheet">
+    <link href="../../css/overrides.css" rel="stylesheet">
     <link href="../../css/mobile.css" rel="stylesheet">
 </head>
 
@@ -57,7 +35,8 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo">
+                <!-- <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo"> -->
+                <br><br>
                 CodingAssessment
                 <!-- <span id="account-container">
                     <img class="account-circle-image" src="images/img03.jpg" alt="Account icon" title="Account icon">
@@ -111,21 +90,38 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
+            <!-- TODO: Need help to fix the dropdown menu. -->
             <div>
-                <a class="black-hyperlink" href="#">
+                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <a class="black-hyperlink" href="javascript:void(0)">
+                    <div class="dropdown">
+                        <div class="menu-button">
+                            Account &#128308;
+                            <!-- Account &#128994;  --> <!-- If user is logged in -->
+                        </div>
+                        <!-- <br> -->
+                        <div class="dropdown-content">
+                            <?php echo "Username here";?>
+			                <a class="menu" href="../../account/login/index.php">Login</a>
+			                <a class="menu" href="../../account/registration/index.php">Register</a>
+		                </div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a class="black-hyperlink" href="">
                     <div class="menu-button">
-                        Account &#128308;
-                        <!-- Account &#128994; -->
+                        Admin
                     </div>
                 </a>
             </div>
         </div>
 
-        <br><br>
+        <br>
 
         <h1>Account login</h1>
 
-        <br><br><br><br><br>
+        <br><br><br>
 
         <!-- TODO-->
         <div id="contents-container">
@@ -137,9 +133,7 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <div id="clear"></div>
-
-        <br><br>
+        <br><br><br><br><br>
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -169,7 +163,7 @@ mysqli_close($connection);
                 <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
-                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br><br>
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
                         <input type="submit" value="Subscribe" class="subscribe-button">
                     </form>
                 </div>

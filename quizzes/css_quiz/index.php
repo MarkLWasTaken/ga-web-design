@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Include the PHP script for connecting to the database (DB).
+// include '../../php/connection.php';
+
+// Query to execute
+// $query ='';
+
+// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+// mysqli_close($connection);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +20,7 @@
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssesment - CSS Quiz</title>
+    <title>CodingAssessment - CSS Quiz</title>
 
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
@@ -21,7 +34,8 @@
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo">
+                <!-- <img class="header-circle-image" src="../../images/img03.jpg" alt="Website logo" title="Website logo"> -->
+                <br><br>
                 CodingAssessment
                 <!-- <span id="account-container">
                     <img class="account-circle-image" src="../images/img03.jpg" alt="Account icon" title="Account icon">
@@ -75,21 +89,38 @@
                     </div>
                 </a>
             </div>
+            <!-- TODO: Need help to fix the dropdown menu. -->
             <div>
-                <a class="black-hyperlink" href="#">
+                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <a class="black-hyperlink" href="javascript:void(0)">
+                    <div class="dropdown">
+                        <div class="menu-button">
+                            Account &#128308;
+                            <!-- Account &#128994;  --> <!-- If user is logged in -->
+                        </div>
+                        <!-- <br> -->
+                        <div class="dropdown-content">
+                            <?php echo "Username here";?>
+			                <a class="menu" href="../../account/login/index.php">Login</a>
+			                <a class="menu" href="../../account/registration/index.php">Register</a>
+		                </div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a class="black-hyperlink" href="">
                     <div class="menu-button">
-                        Account &#128308;
-                        <!-- Account &#128994; -->
+                        Admin
                     </div>
                 </a>
             </div>
         </div>
 
-        <br><br>
+        <br>
 
         <h1>CSS Quiz</h1>
 
-        <br><br>
+        <br>
 
         <!-- TODO-->
         <div id="contents-container">
