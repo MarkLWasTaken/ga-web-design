@@ -24,7 +24,7 @@ session_start();
 
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
-    <link href="../../css/account-login.css" rel="stylesheet">
+    <link href="../../css/account-login-menu.css" rel="stylesheet">
     <link href="../../css/overrides.css" rel="stylesheet">
     <link href="../../css/mobile.css" rel="stylesheet">
 </head>
@@ -117,19 +117,33 @@ session_start();
             </div>
         </div>
 
-        <br>
-
-        <h1>Account login</h1>
-
         <br><br><br>
 
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
+        <!-- TODO -->
+        <!-- Layout for the login form. -->
+        <div id="login-container">
+            <div id="login-content">
                 <br>
-                <img class="content-circle-image" src="../../images/img01.jpg" alt="Image #1">
+                <h1>Account login</h1>
                 <br>
-                Content 1
+                <p>Login to an account through the forms here.</p>
+                <br>
+
+                <!-- Login table form -->
+                <form action="success/index.php" method="post">
+                    <table id="login-form">
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" required></td>
+                        </tr>
+                        <tr>
+                            <th>Password:</th>
+                            <td><input type="password" name="txtPassword" required></td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <input class="login-button" type="submit" name="btnLogin" value="Login">
+                </form>
             </div>
         </div>
 

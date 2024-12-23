@@ -4,16 +4,30 @@ session_start();
 // Include the PHP script for connecting to the database (DB).
 include '../../../php/connection.php';
 
+// Set a the default timezone for date and time.
+date_default_timezone_set('Asia/Singapore');
+
+// Set the date and time format.
+$dateCreated = date('Y/m/d h:i:s a', time());
+
+// Retrieve the values from the account registration page.
+$fname = $_POST['txtFName'];
+$lname = $_POST['txtLName'];
+$email = $_POST['txtEmail'];
+$password = $_POST['txtPassword'];
+$gender = $_POST['rdoGender'];
+$country = $_POST['selCountry'];
+
 // Query to execute
-// $query ='';
+$query = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `date_created`) 
+            VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', '$dateCreated')";
 
-echo "Account succesfully created!";
-echo "Redirecting to the login page in 5 seconds";
-// Redirect to the login page with 5 seconds delay.
-header('refresh:5; url=../../../account/login/index.php');
-
-// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-mysqli_close($connection);
+// For security reasons, prepared statements will be used to prevent SQL injections.
+// To check if the email address already exists in the database.
+$getEmail = $db->prepare("SELECT * FROM users WHERE email=$email");
+$getEmail->bind_param("s", $username);
+$getEmail->execute();
+$result = $getEmail->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +43,7 @@ mysqli_close($connection);
 
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
-    <link href="../../../css/account-registration-success.css" rel="stylesheet">
+    <link href="../../../css/account-registration-successful.css" rel="stylesheet">
     <link href="../../../css/overrides.css" rel="stylesheet">
     <link href="../../../css/mobile.css" rel="stylesheet">
 </head>
@@ -122,19 +136,100 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <br>
+        <br><br><br>
 
-        <h1>Account registration successful</h1>
-
-        <br>
-
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
+        <div id="account-registration-success-container">
+            <div id="account-registration-success-content">
                 <br>
-                <img class="content-circle-image" src="../../../images/img01.jpg" alt="Image #1">
+                <?php
+                    // Check if the email address contains invalid characters or is empty.
+                    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '') {
+                        // Adjust the style according to the available content.
+                        echo "<style>
+                                    #account-registration-success-container {
+                                        height: 400px;
+                                    }
+                                    #account-registration-success-content {
+                                        height: 350px;
+                                    }
+                                </style>";
+                        echo "<h1>Account registration failed!</h1>";
+                        echo "<br>";
+                        echo "<p>An error has occured while registering your account.</p>";
+                        echo "<p>The account you're trying to register with the email address<br>contains invalid characters.</p>";
+                        echo "<br>";
+                        echo "<p>Please try again later.</p>";
+                    }
+                    // Check if the string length is less than 8 characters.
+                    else if (strlen($password) < 8) {
+                        // Adjust the style according to the available content.
+                        echo "<style>
+                                    #account-registration-success-container {
+                                        height: 400px;
+                                    }
+                                    #account-registration-success-content {
+                                        height: 350px;
+                                    }
+                                </style>";
+                        echo "<h1>Account registration failed!</h1>";
+                        echo "<br>";
+                        echo "<p>An error has occured while registering your account.</p>";
+                        echo "<p>The account you're trying to register with the password<br>is less than 8 characters.</p>";
+                        echo "<br>";
+                        echo "<p>Please try again later.</p>";
+                    }
+                    // Check if the email address already exists in the database.
+                    else if ($result->num_rows > 0) {
+                        // Adjust the style according to the available content.
+                        echo "<style>
+                                    #account-registration-success-container {
+                                        height: 400px;
+                                    }
+                                    #account-registration-success-content {
+                                        height: 350px;
+                                    }
+                                </style>";
+                        echo "<h1>Account registration failed!</h1>";
+                        echo "<br>";
+                        echo "<p>An error has occured while registering your account.</p>";
+                        echo "<p>The account you're trying to register already exists in the database.</p>";
+                        echo "<br>";
+                        echo "<p>Please register using a new email address and try again later.</p>";
+                    }
+                    // Register the account details into the database.
+                    else if (mysqli_query($connection, $query)) {
+                        echo "<h1>Account registration sucessful!</h1>";
+                        echo "<br>";
+                        echo "<p>The account details you have input has been succesfully registered!</p>";
+                        echo "<p>You'll be redirected to the login page in 5 seconds.</p>";
+                        echo '<meta http-equiv="refresh" content="5; url=../../../account/login/index.php">';
+                    }
+                    // If other errors were encountered.
+                    else {
+                        // Adjust the style according to the available content.
+                        echo "<style>
+                                    #account-registration-success-container {
+                                        height: 450px;
+                                    }
+                                    #account-registration-success-content {
+                                        height: 500px;
+                                    }
+                                </style>";
+                        echo "<h1>Account registration failed!</h1>";
+                        echo "<br>";
+                        echo "<p>An error has occured while registering your account.</p>";
+                        echo "<p>There are a few resons why the registration may have failed.</p>";
+                        echo "<br>";
+                        echo "<p>1. The account you're trying to register is incomplete or contains invalid characters.</p>";
+                        echo "<p>2. The account you're trying to register already exists in the database.</p>";
+                        echo "<p>3. The server and the database is currently overloaded.</p>";
+                        echo "<br>";
+                        echo "<p>Please try again later.</p>";
+                    }
+                    // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                    mysqli_close($connection);
+                ?>
                 <br>
-                Content 1
             </div>
         </div>
 

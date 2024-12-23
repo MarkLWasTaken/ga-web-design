@@ -2,7 +2,7 @@
 session_start();
 
 // Include the PHP script for connecting to the database (DB).
-// include '../../../php/connection.php';
+include '../../../php/connection.php';
 
 // Query to execute
 // $query ='';
@@ -14,21 +14,21 @@ if(isset($_POST['btnLogin'])){
     $password = $_POST['txtPassword'];
 
     // SQL query to fetch data from the DB.
-    $query = "SELECT * FROM users WHERE username='$email' AND password='$password'";
+    $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     // Attempt to connect to the DB and execute the SQL query.
     $result = mysqli_query($connection, $query);
     // Verify if the record exists in the DB.
     if(mysqli_num_rows($result) > 0){
-        // echo "Record found!";
+        echo "Record found!";
         while($row=mysqli_fetch_assoc($result)){
             $_SESSION['id'] = $row['id'];
             $_SESSION['email'] = $row['email'];
-            $_SESSION['username'] = $row['username'];
+            $_SESSION['password'] = $row['password'];
         }
         // Redirect to the home page.
         // header("Location: '../../index.html'");
         // Redirect to the home page with 5 seconds delay.
-        header('refresh:5; url=../../../index.html');
+        header('refresh:5; url=../../../index.php');
     } else {
         echo "The username or password you have entered in incorrect. Please try again.";
     }

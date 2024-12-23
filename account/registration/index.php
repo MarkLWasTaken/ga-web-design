@@ -138,7 +138,7 @@ session_start();
                 <br>
 
                 <!-- Registration table form -->
-                <form action="#" method="post">
+                <form action="success/index.php" method="post">
                     <table id="registration-form">
                         <tr>
                             <th>First Name:</th>
@@ -149,11 +149,11 @@ session_start();
                             <td><input type="text" name="txtLName"></td>
                         </tr>
                         <tr>
-                            <th>Email Address:</th>
+                            <th>Email Address*:</th>
                             <td><input type="email" name="txtEmail" required></td>
                         </tr>
                         <tr>
-                            <th>Password:</th>
+                            <th>Password*:</th>
                             <td><input type="password" name="txtPassword" required></td>
                         </tr>
                         <tr>

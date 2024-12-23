@@ -101,8 +101,8 @@ session_start();
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php echo "Username here";?>
-			                <a class="menu" href="../../account/login/index.php">Login</a>
-			                <a class="menu" href="../../account/registration/index.php">Register</a>
+			                <a class="menu" href="../account/login/index.php">Login</a>
+			                <a class="menu" href="../account/registration/index.php">Register</a>
 		                </div>
                     </div>
                 </a>
