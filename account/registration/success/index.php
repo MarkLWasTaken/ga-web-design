@@ -141,6 +141,7 @@ $result = $getEmail->get_result();
         <div id="account-registration-success-container">
             <div id="account-registration-success-content">
                 <br>
+                <!-- PHP messages to trigger when certain conditions are met. -->
                 <?php
                     // Check if the email address contains invalid characters or is empty.
                     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '') {
@@ -223,6 +224,7 @@ $result = $getEmail->get_result();
                         echo "<p>1. The account you're trying to register is incomplete or contains invalid characters.</p>";
                         echo "<p>2. The account you're trying to register already exists in the database.</p>";
                         echo "<p>3. The server and the database is currently overloaded.</p>";
+                        echo "<p>4. Internal website error.</p>";
                         echo "<br>";
                         echo "<p>Please try again later.</p>";
                     }

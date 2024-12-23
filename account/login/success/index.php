@@ -4,33 +4,35 @@ session_start();
 // Include the PHP script for connecting to the database (DB).
 include '../../../php/connection.php';
 
-// Query to execute
-// $query ='';
+// Query to execute (Fetch data from the DB).
+$query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+
+// Decalre variable to attempt to connect to the DB and execute the SQL query.
+$result = mysqli_query($connection, $query);
 
 // Executes the code when the login button is pressed.
-if(isset($_POST['btnLogin'])){
+if (isset($_POST['btnLogin'])) {
     // Assigns the variables fetch values from the text fields.
     $email = $_POST['txtEmail'];
     $password = $_POST['txtPassword'];
 
-    // SQL query to fetch data from the DB.
-    $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    // Attempt to connect to the DB and execute the SQL query.
-    $result = mysqli_query($connection, $query);
     // Verify if the record exists in the DB.
-    if(mysqli_num_rows($result) > 0){
-        echo "Record found!";
+    if (mysqli_num_rows($result) > 0) {
         while($row=mysqli_fetch_assoc($result)){
             $_SESSION['id'] = $row['id'];
             $_SESSION['email'] = $row['email'];
             $_SESSION['password'] = $row['password'];
         }
-        // Redirect to the home page.
-        // header("Location: '../../index.html'");
-        // Redirect to the home page with 5 seconds delay.
-        header('refresh:5; url=../../../index.php');
+    }
+    // Check if the email address contains invalid characters or is empty.
+    else if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '') {
+
+    }
+    // Check if the string length is less than 8 characters.
+    else if (strlen($password) < 8) {
+
     } else {
-        echo "The username or password you have entered in incorrect. Please try again.";
+        // insert invalid message here
     }
 }
 
@@ -150,15 +152,79 @@ mysqli_close($connection);
 
         <br><br><br>
 
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
-                <br>
-                <img class="content-circle-image" src="../../../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 1
-            </div>
-        </div>
+        <!-- PHP for login messages -->
+        <?php
+            // Function for successful login.
+            function loginSuccess() {
+                echo "<h1>Account login sucessful!</h1>";
+                echo "<br>";
+                echo "<p>The email address and password matches the database.</p>";
+                echo "<p>You are now logged in to the website.</p>";
+                echo "<p>You'll be redirected to the home page in 5 seconds.</p>";
+                echo '<meta http-equiv="refresh" content="5; url=../../../index.php">';
+            }
+
+            // Function to check if the email address contains invalid characters or is empty.
+            function validateEmail() {
+                // Adjust the style according to the available content.
+                echo "<style>
+                            #account-login-success-container {
+                                height: 400px;
+                            }
+                            #account-login-success-content {
+                                height: 350px;
+                            }
+                        </style>";
+                echo "<h1>Account login failed!</h1>";
+                echo "<br>";
+                echo "<p>An error has occured while logging in to your account.</p>";
+                echo "<p>The account you're trying to login with the email address<br>contains invalid characters.</p>";
+                echo "<br>";
+                echo "<p>Please try again later.</p>";
+            }
+
+            // Function to check if the password length is less than 8.
+            function passwordLessThan8() {
+                // Adjust the style according to the available content.
+                echo "<style>
+                            #account-login-success-container {
+                                height: 400px;
+                            }
+                            #account-login-success-content {
+                                height: 350px;
+                            }
+                        </style>";
+                echo "<h1>Account login failed!</h1>";
+                echo "<br>";
+                echo "<p>An error has occured while logging in to your account.</p>";
+                echo "<p>The account you're trying to login with the password<br>is less than 8 characters.</p>";
+                echo "<br>";
+                echo "<p>Please try again later.</p>";
+            }
+
+            // Function for other errors encountered.
+            function otherErrors() {
+                // Adjust the style according to the available content.
+                echo "<style>
+                            #account-login-success-container {
+                                height: 450px;
+                            }
+                            #account-login-success-content {
+                                height: 500px;
+                            }
+                        </style>";
+                echo "<h1>Account login failed!</h1>";
+                echo "<br>";
+                echo "<p>An error has occured while logging in to your account.</p>";
+                echo "<p>There are a few resons why the login may have failed.</p>";
+                echo "<br>";
+                echo "<p>1. The account you're trying to login is incomplete or contains invalid characters.</p>";
+                echo "<p>2. The server and the database is currently overloaded.</p>";
+                echo "<p>3. Internal website error.</p>";
+                echo "<br>";
+                echo "<p>Please try again later.</p>";
+            }
+        ?>
 
         <br><br><br><br><br>
 
