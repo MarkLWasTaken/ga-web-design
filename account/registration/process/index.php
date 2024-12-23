@@ -19,12 +19,12 @@ $gender = $_POST['rdoGender'];
 $country = $_POST['selCountry'];
 
 // Query to execute
-$query = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `date_created`) 
-            VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', '$dateCreated')";
+$query = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
+            VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
 
 // For security reasons, prepared statements will be used to prevent SQL injections.
 // To check if the email address already exists in the database.
-$getEmail = $db->prepare("SELECT * FROM users WHERE email=$email");
+$getEmail = $db->prepare("SELECT * FROM `users` WHERE email=$email");
 $getEmail->bind_param("s", $username);
 $getEmail->execute();
 $result = $getEmail->get_result();
@@ -39,11 +39,11 @@ $result = $getEmail->get_result();
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssessment - Account registration successful</title>
+    <title>CodingAssessment - Account Registration Process</title>
 
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
-    <link href="../../../css/account-registration-successful.css" rel="stylesheet">
+    <link href="../../../css/account-registration-process.css" rel="stylesheet">
     <link href="../../../css/overrides.css" rel="stylesheet">
     <link href="../../../css/mobile.css" rel="stylesheet">
 </head>
@@ -138,8 +138,8 @@ $result = $getEmail->get_result();
 
         <br><br><br>
 
-        <div id="account-registration-success-container">
-            <div id="account-registration-success-content">
+        <div id="account-registration-process-container">
+            <div id="account-registration-process-content">
                 <br>
                 <!-- PHP messages to trigger when certain conditions are met. -->
                 <?php

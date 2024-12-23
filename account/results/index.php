@@ -20,7 +20,7 @@ session_start();
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssessment - Account results</title>
+    <title>CodingAssessment - Account Results</title>
 
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
