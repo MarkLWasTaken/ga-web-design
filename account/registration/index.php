@@ -138,7 +138,7 @@ session_start();
                 <br>
 
                 <!-- Registration table form -->
-                <form action="success/index.php" method="post">
+                <form action="process/index.php" method="post">
                     <table id="registration-form">
                         <tr>
                             <th>First Name:</th>

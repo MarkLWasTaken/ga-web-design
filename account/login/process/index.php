@@ -4,6 +4,10 @@ session_start();
 // Include the PHP script for connecting to the database (DB).
 include '../../../php/connection.php';
 
+// Assigns the variables fetch values from the text fields.
+$email = $_POST['txtEmail'];
+$password = $_POST['txtPassword'];
+
 // Query to execute (Fetch data from the DB).
 $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
@@ -12,10 +16,6 @@ $result = mysqli_query($connection, $query);
 
 // Executes the code when the login button is pressed.
 if (isset($_POST['btnLogin'])) {
-    // Assigns the variables fetch values from the text fields.
-    $email = $_POST['txtEmail'];
-    $password = $_POST['txtPassword'];
-
     // Verify if the record exists in the DB.
     if (mysqli_num_rows($result) > 0) {
         while($row=mysqli_fetch_assoc($result)){
@@ -53,7 +53,7 @@ mysqli_close($connection);
 
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
-    <link href="../../../css/account-login.css" rel="stylesheet">
+    <link href="../../../css/account-login-process.css" rel="stylesheet">
     <link href="../../../css/overrides.css" rel="stylesheet">
     <link href="../../../css/mobile.css" rel="stylesheet">
 </head>
@@ -151,6 +151,22 @@ mysqli_close($connection);
         <h1>Account login successful</h1>
 
         <br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- PHP for login messages -->
         <?php

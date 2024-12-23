@@ -130,7 +130,7 @@ session_start();
                 <br>
 
                 <!-- Login table form -->
-                <form action="success/index.php" method="post">
+                <form action="process/index.php" method="post">
                     <table id="login-form">
                         <tr>
                             <th>Email Address:</th>

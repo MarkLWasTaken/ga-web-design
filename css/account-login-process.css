@@ -1,5 +1,5 @@
 
-#account-registration-success-container {
+#account-login-process-container {
     /*
     A hidden container to ensure the contents tabs animations (if any)
     do not push the footer down and affect the overall website design.
@@ -10,7 +10,7 @@
     height: 350px;
 }
 
-#account-registration-success-content {
+#account-login-process-content {
     height: 300px;
     width: 750px;
     border-style: solid;
