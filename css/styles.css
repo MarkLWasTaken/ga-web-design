@@ -251,7 +251,7 @@ input[type="submit"] {
 }
 
 .content:hover {
-    margin-top: 10px;
+    margin-top: 15px;
 
     -webkit-transition: background-color 0.3s, transform 0.3s linear; /* Safari, Chrome and Opera > 12.1 */
 	-moz-transition: background-color 0.3s, transform 0.3s linear; /* Firefox < 16 */
@@ -277,4 +277,34 @@ input[type="submit"] {
     height: 150px;
     width: 150px;
     padding: 10px;
+}
+
+/* Hidden block when the element is in absolute position */
+.hidden-welcome {
+    display: none;
+    opacity: 0;
+}
+
+.page-title {
+    padding-left: 5%;
+}
+
+/* Display line break only in mobile design. */
+.mobile-line-break {
+    display: none;
+}
+
+#footer-container-3-mobile {
+    background-color: lightgray;
+    float: left;
+    text-align: center;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    width: 100%;
+    height: 225px;
+    padding-top: 1%;
+    border-radius: 30px;
+    justify-content: center;
+    display: none;
 }

@@ -38,7 +38,7 @@ mysqli_close($connection);
     <link href="css/dropdown-menu.css" rel="stylesheet">
     <link href="css/home.css" rel="stylesheet">
     <!-- <link href="css/overrides.css" rel="stylesheet"> -->
-    <link href="css/mobile.css" rel="stylesheet">
+    <link href="css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,6 +56,8 @@ mysqli_close($connection);
                 </span> -->
             </div>
         </div>
+
+        <div class="hidden-header-mobile"></div>
 
         <br>
 
@@ -151,15 +153,21 @@ mysqli_close($connection);
             ?>
         </div>
 
+        <br class="desktop-line-break">
+
+        <h1 class="page-title">Home</h1>
+
         <br>
 
-        <h1>Home</h1>
+        <div class="welcome">
+            <h1>Welcome to CodingAssessment</h1>
+        </div>
 
-        <br>
+        <div class="hidden-welcome">
+            <h1>.</h1>
+        </div>
 
-        <h1 class="welcome">Welcome to CodingAssessment</h1>
-
-        <br><br>
+        <br><br><br>
 
         <div id="contents-container">
             <div id="content1" class="content">
@@ -170,6 +178,8 @@ mysqli_close($connection);
                 <p>No charges will be incurred while using the website. We rely solely on donationes to keep the website running 24/7.</p>
             </div>
 
+            <div class="content1-spacing-mobile"></div>
+
             <div id="content2" class="content">
                 <br>
                 <img class="content-circle-image" src="images/img01.jpg" alt="Image #1">
@@ -177,6 +187,8 @@ mysqli_close($connection);
                 <h3>Easy to use</h3>
                 <p>Carefully designed user interface to guide the user throughout the website.</p>
             </div>
+
+            <div class="content2-spacing-mobile"></div>
 
             <div id="content3" class="content">
                 <br>
@@ -187,7 +199,26 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <br><br><br><br><br>
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+
+        <div id="footer-container-3-mobile">
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <div class="subscription-form">
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="submit" value="Subscribe" class="subscribe-button">
+                </form>
+            </div>
+        </div>
+
+        <div class="hidden-footer-container-3-mobile"></div>
+
+        <br class="mobile-line-break">
+        <br class="mobile-line-break">
 
         <div id="footer-container" class="footer-text footer-container-override">
             <div id="footer-container-2">
@@ -214,7 +245,7 @@ mysqli_close($connection);
                 </ul>
             </div>
             <div id="footer-container-3" class="footer-container-3-override">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
+                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
                         <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>

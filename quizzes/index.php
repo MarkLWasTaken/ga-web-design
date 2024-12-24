@@ -37,7 +37,7 @@ mysqli_close($connection);
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/dropdown-menu.css" rel="stylesheet">
     <link href="../css/quizzes.css" rel="stylesheet">
-    <link href="../css/mobile.css" rel="stylesheet">
+    <link href="../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
 <body>

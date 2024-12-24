@@ -25,7 +25,7 @@ session_start();
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../css/quiz-html.css" rel="stylesheet">
-    <link href="../../css/mobile.css" rel="stylesheet">
+    <link href="../../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
 <body>

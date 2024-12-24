@@ -45,7 +45,7 @@ $result = $getEmail->get_result();
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../../css/account-registration-process.css" rel="stylesheet">
     <link href="../../../css/overrides.css" rel="stylesheet">
-    <link href="../../../css/mobile.css" rel="stylesheet">
+    <link href="../../../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
 <body>

@@ -1,0 +1,96 @@
+
+@media only screen and (max-width: 1080px) {
+    #header {
+        position: absolute;
+        width: 100%;
+    }
+
+    /* Hidden block when the element is in absolute position. */
+    .hidden-header-mobile {
+        height: 150px;
+    }
+
+    #menu-buttons, #menu-button {
+        display: none;
+    }
+
+    /* Display line break only in desktop design. */
+    .desktop-line-break {
+        display: none;
+    }
+
+    #footer-container {
+        position: absolute;
+        width: 100%;
+        height: 320px;
+    }
+
+    #footer-container-3 {
+        display: none;
+    }
+
+    #footer-container-3-mobile {
+        position: absolute;
+        display: block;
+    }
+
+    /* Hidden block when the element is in absolute position. */
+    .hidden-footer-container-3-mobile {
+        width: 100%;
+        height: 225px;
+    }
+
+    /* Display line break only in mobile design. */
+    .mobile-line-break {
+        display: block;
+    }
+
+    #footer-container-2 {
+        padding-top: 3%;
+        clear: both;
+        margin: 0 auto;
+    }
+
+    #content1, #content2, #content3 {
+        position: absolute;
+        width: 98%;
+        height: 200px;
+    }
+
+    #contents-container {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 800px;
+        gap: normal;
+        padding-left: 1%;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .welcome {
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+    }
+
+    /* Hidden block when the element is in absolute position. */
+    .hidden-welcome {
+        display: inline;
+    }
+    
+    .content-circle-image {
+        display: none;
+    }
+
+    .content1-spacing-mobile {
+        height: 250px;
+    }
+
+    .content2-spacing-mobile {
+        height: 250px;
+    }
+}
