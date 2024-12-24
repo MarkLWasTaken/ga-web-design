@@ -37,7 +37,6 @@ mysqli_close($connection);
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/dropdown-menu.css" rel="stylesheet">
     <link href="../css/contact.css" rel="stylesheet">
-    <link href="../css/overrides.css" rel="stylesheet">
     <link href="../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
@@ -47,15 +46,12 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <!-- <img class="header-circle-image" src="../images/img03.jpg" alt="Website logo" title="Website logo"> -->
                 <br><br>
                 CodingAssessment
-                <!-- <span id="account-container">
-                    <img class="account-circle-image" src="../images/img03.jpg" alt="Account icon" title="Account icon">
-                    Account
-                </span> -->
             </div>
         </div>
+
+        <div class="hidden-header-mobile"></div>
 
         <br>
 
@@ -151,9 +147,9 @@ mysqli_close($connection);
             ?>
         </div>
 
-        <br>
+        <br class="desktop-line-break">
 
-        <h1>Contact us</h1>
+        <h1 class="page-title">Contact us</h1>
 
         <br>
 
@@ -167,7 +163,26 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <br><br><br><br><br>
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+
+        <div id="footer-container-3-mobile">
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <div class="subscription-form">
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="submit" value="Subscribe" class="subscribe-button">
+                </form>
+            </div>
+        </div>
+
+        <div class="hidden-footer-container-3-mobile"></div>
+
+        <br class="mobile-line-break">
+        <br class="mobile-line-break">
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -194,7 +209,7 @@ mysqli_close($connection);
                 </ul>
             </div>
             <div id="footer-container-3">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
+                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
                     <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>

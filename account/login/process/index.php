@@ -32,7 +32,6 @@ mysqli_close($connection);
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../../css/account-login-process.css" rel="stylesheet">
-    <link href="../../../css/overrides.css" rel="stylesheet">
     <link href="../../../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
@@ -42,15 +41,12 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <!-- <img class="header-circle-image" src="../../../images/img03.jpg" alt="Website logo" title="Website logo"> -->
                 <br><br>
                 CodingAssessment
-                <!-- <span id="account-container">
-                    <img class="account-circle-image" src="images/img03.jpg" alt="Account icon" title="Account icon">
-                    Account
-                </span> -->
             </div>
         </div>
+
+        <div class="hidden-header-mobile"></div>
 
         <br>
 
@@ -103,25 +99,47 @@ mysqli_close($connection);
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
                         <div class="menu-button">
-                            Account &#128308;
-                            <!-- Account &#128994;  --> <!-- If user is logged in -->
+                            <?php
+                            if (isset($_SESSION['email'])) {
+                                // Online.
+                                echo "Account &#128994;";
+                            }
+                            else {
+                                // Offline.
+                                echo "Account &#128308;";
+                            }
+                            ?>
                         </div>
                         <!-- <br> -->
                         <div class="dropdown-content">
-                            <?php echo "Username here";?>
-			                <a class="menu" href="../../../account/login/index.php">Login</a>
-			                <a class="menu" href="../../../account/registration/index.php">Register</a>
+                            <?php
+                            if (isset($_SESSION['email'])) {
+                                echo "User is logged in.";
+                                echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
+                                echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
+                                echo "<a class='menu' href='../../../account/logout/index.php'>Logout</a>";
+                            }
+                            else {
+                                echo "User is not logged in.";
+                                echo "<a class='menu' href='../../../account/login/index.php'>Login</a>";
+                                echo "<a class='menu' href='../../../account/registration/index.php'>Register</a>";
+                            }
+                            ?>
 		                </div>
                     </div>
                 </a>
             </div>
-            <div>
-                <a class="black-hyperlink" href="">
-                    <div class="menu-button">
-                        Admin
-                    </div>
-                </a>
-            </div>
+            <?php
+            if (isset($isAdmin) == 1) {
+                echo "<div>";
+                echo "<a class='black-hyperlink' href=''>";
+                    echo "<div class='menu-button'>";
+                        echo "Admin";
+                    echo "</div>";
+                echo "</a>";
+            echo "</div>";
+            }
+            ?>
         </div>
 
         <br><br><br>
@@ -157,7 +175,7 @@ mysqli_close($connection);
                 // PHP for login messages to trigger when certain conditions are met.
                 // Function for successful login.
                 function loginSuccess() {
-                    echo "<h1>Account login sucessful!</h1>";
+                    echo "<h1 class='page-title'>Account login sucessful!</h1>";
                     echo "<br>";
                     echo "<p>The email address and password matches the database.</p>";
                     echo "<p>You are now logged in to the website.</p>";
@@ -176,7 +194,7 @@ mysqli_close($connection);
                                     height: 400px;
                                 }
                             </style>";
-                    echo "<h1>Account login failed!</h1>";
+                    echo "<h1 class='page-title'>Account login failed!</h1>";
                     echo "<br>";
                     echo "<p>An error has occured while logging in to your account.</p>";
                     echo "<p>The account you're trying to login with the email address<br>contains invalid characters.</p>";
@@ -195,7 +213,7 @@ mysqli_close($connection);
                                     height: 400px;
                                 }
                             </style>";
-                    echo "<h1>Account login failed!</h1>";
+                    echo "<h1 class='page-title'>Account login failed!</h1>";
                     echo "<br>";
                     echo "<p>An error has occured while logging in to your account.</p>";
                     echo "<p>The account you're trying to login with the password<br>is less than 8 characters.</p>";
@@ -214,7 +232,7 @@ mysqli_close($connection);
                                     height: 550px;
                                 }
                             </style>";
-                    echo "<h1>Account login failed!</h1>";
+                    echo "<h1 class='page-title'>Account login failed!</h1>";
                     echo "<br>";
                     echo "<p>An error has occured while logging in to your account.</p>";
                     echo "<p>There are a few resons why the login may have failed.</p>";
@@ -226,12 +244,33 @@ mysqli_close($connection);
                     echo "<br>";
                     echo "<p>Please try again later.</p>";
                 }
+                // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                mysqli_close($connection);
                 ?>
                 <br>
             </div>
         </div>
 
-        <br><br><br><br><br>
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+
+        <div id="footer-container-3-mobile">
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <div class="subscription-form">
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="submit" value="Subscribe" class="subscribe-button">
+                </form>
+            </div>
+        </div>
+
+        <div class="hidden-footer-container-3-mobile"></div>
+
+        <br class="mobile-line-break">
+        <br class="mobile-line-break">
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -258,7 +297,7 @@ mysqli_close($connection);
                 </ul>
             </div>
             <div id="footer-container-3">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
+                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
                     <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>

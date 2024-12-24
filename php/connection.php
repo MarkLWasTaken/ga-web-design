@@ -1,7 +1,6 @@
-
-<!-- Credentials for connecting to the database. -->
-
 <?php
+// Credentials for connecting to the database.
+
 $hostname = 'localhost';
 $username = 'root';
 $password = '';

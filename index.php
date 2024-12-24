@@ -37,7 +37,6 @@ mysqli_close($connection);
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/dropdown-menu.css" rel="stylesheet">
     <link href="css/home.css" rel="stylesheet">
-    <!-- <link href="css/overrides.css" rel="stylesheet"> -->
     <link href="css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
@@ -45,15 +44,10 @@ mysqli_close($connection);
     <div id="basket">
         <div id="circle-header"></div>
 
-        <div id="header" class="website-title header-override">
+        <div id="header" class="website-title">
             <div id="header-2">
-                <!-- <img class="header-circle-image" src="images/img03.jpg" alt="Website logo" title="Website logo"> -->
                 <br><br>
                 CodingAssessment
-                <!-- <span id="account-container">
-                    <img class="account-circle-image" src="images/img03.jpg" alt="Account icon" title="Account icon">
-                    Account
-                </span> -->
             </div>
         </div>
 
@@ -61,45 +55,45 @@ mysqli_close($connection);
 
         <br>
 
-        <div id="menu-buttons" class="menu-buttons-override">
+        <div id="menu-buttons">
             <div>
                 <a class="black-hyperlink" href="#">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         Home
                     </div>
                 </a>
             </div>
             <div>
                 <a class="black-hyperlink" href="quizzes/index.php">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         Quizzes
                     </div>
                 </a>
             </div>
             <div>
                 <a class="black-hyperlink" href="tips/index.php">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         Tips
                     </div>
                 </a>
             </div>
             <div>
                 <a class="black-hyperlink" href="donations/index.php">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         Donations
                     </div>
                 </a>
             </div>
             <div>
                 <a class="black-hyperlink" href="contact/index.php">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         Contact us
                     </div>
                 </a>
             </div>
             <div>
                 <a class="black-hyperlink" href="about/index.php">
-                    <div class="menu-button menu-button-override">
+                    <div class="menu-button">
                         About us
                     </div>
                 </a>
@@ -109,7 +103,7 @@ mysqli_close($connection);
                 <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
-                        <div class="menu-button menu-button-override">
+                        <div class="menu-button">
                             <?php
                             if (isset($_SESSION['email'])) {
                                 // Online.
@@ -220,7 +214,7 @@ mysqli_close($connection);
         <br class="mobile-line-break">
         <br class="mobile-line-break">
 
-        <div id="footer-container" class="footer-text footer-container-override">
+        <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
                 <p class="footer-text-2">Sitemap</p>
                 <ul>
@@ -244,7 +238,7 @@ mysqli_close($connection);
                     </a>
                 </ul>
             </div>
-            <div id="footer-container-3" class="footer-container-3-override">
+            <div id="footer-container-3">
                 <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">

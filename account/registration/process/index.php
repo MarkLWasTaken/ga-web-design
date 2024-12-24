@@ -19,15 +19,27 @@ $gender = $_POST['rdoGender'];
 $country = $_POST['selCountry'];
 
 // Query to execute
-$query = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
+$queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
             VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
+
+// Decalre variable to attempt to connect to the DB and execute the SQL query.
+$resultRegister = mysqli_query($connection, $query);
 
 // For security reasons, prepared statements will be used to prevent SQL injections.
 // To check if the email address already exists in the database.
 $getEmail = $db->prepare("SELECT * FROM `users` WHERE email=$email");
 $getEmail->bind_param("s", $username);
 $getEmail->execute();
-$result = $getEmail->get_result();
+$result2 = $getEmail->get_result();
+
+// Query to execute (Fetch data from the DB).
+$query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+
+// Decalre variable to attempt to connect to the DB and execute the SQL query.
+$result = mysqli_query($connection, $query);
+
+// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +56,6 @@ $result = $getEmail->get_result();
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../../css/account-registration-process.css" rel="stylesheet">
-    <link href="../../../css/overrides.css" rel="stylesheet">
     <link href="../../../css/styles-rwd-mobile.css" rel="stylesheet">
 </head>
 
@@ -54,15 +65,12 @@ $result = $getEmail->get_result();
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <!-- <img class="header-circle-image" src="../../../images/img03.jpg" alt="Website logo" title="Website logo"> -->
                 <br><br>
                 CodingAssessment
-                <!-- <span id="account-container">
-                    <img class="account-circle-image" src="images/img03.jpg" alt="Account icon" title="Account icon">
-                    Account
-                </span> -->
             </div>
         </div>
+
+        <div class="hidden-header-mobile"></div>
 
         <br>
 
@@ -105,35 +113,47 @@ $result = $getEmail->get_result();
             <div>
                 <a class="black-hyperlink" href="../../../about/index.php">
                     <div class="menu-button">
-                        About us
-                    </div>
-                </a>
-            </div>
-            <!-- TODO: Need help to fix the dropdown menu. -->
-            <div>
-                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
-                <a class="black-hyperlink" href="javascript:void(0)">
-                    <div class="dropdown">
-                        <div class="menu-button">
-                            Account &#128308;
-                            <!-- Account &#128994;  --> <!-- If user is logged in -->
+                            <?php
+                            if (isset($_SESSION['email'])) {
+                                // Online.
+                                echo "Account &#128994;";
+                            }
+                            else {
+                                // Offline.
+                                echo "Account &#128308;";
+                            }
+                            ?>
                         </div>
                         <!-- <br> -->
                         <div class="dropdown-content">
-                            <?php echo "Username here";?>
-			                <a class="menu" href="../../../account/login/index.php">Login</a>
-			                <a class="menu" href="../../../account/registration/index.php">Register</a>
+                            <?php
+                            if (isset($_SESSION['email'])) {
+                                echo "User is logged in.";
+                                echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
+                                echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
+                                echo "<a class='menu' href='../../../account/logout/index.php'>Logout</a>";
+                            }
+                            else {
+                                echo "User is not logged in.";
+                                echo "<a class='menu' href='../../../account/login/index.php'>Login</a>";
+                                echo "<a class='menu' href='../../../account/registration/index.php'>Register</a>";
+                            }
+                            ?>
 		                </div>
                     </div>
                 </a>
             </div>
-            <div>
-                <a class="black-hyperlink" href="">
-                    <div class="menu-button">
-                        Admin
-                    </div>
-                </a>
-            </div>
+            <?php
+            if (isset($isAdmin) == 1) {
+                echo "<div>";
+                echo "<a class='black-hyperlink' href=''>";
+                    echo "<div class='menu-button'>";
+                        echo "Admin";
+                    echo "</div>";
+                echo "</a>";
+            echo "</div>";
+            }
+            ?>
         </div>
 
         <br><br><br>
@@ -154,7 +174,7 @@ $result = $getEmail->get_result();
                                         height: 350px;
                                     }
                                 </style>";
-                        echo "<h1>Account registration failed!</h1>";
+                        echo "<h1 class='page-title'>Account registration failed!</h1>";
                         echo "<br>";
                         echo "<p>An error has occured while registering your account.</p>";
                         echo "<p>The account you're trying to register with the email address<br>contains invalid characters.</p>";
@@ -172,7 +192,7 @@ $result = $getEmail->get_result();
                                         height: 350px;
                                     }
                                 </style>";
-                        echo "<h1>Account registration failed!</h1>";
+                        echo "<h1 class='page-title'>Account registration failed!</h1>";
                         echo "<br>";
                         echo "<p>An error has occured while registering your account.</p>";
                         echo "<p>The account you're trying to register with the password<br>is less than 8 characters.</p>";
@@ -180,7 +200,7 @@ $result = $getEmail->get_result();
                         echo "<p>Please try again later.</p>";
                     }
                     // Check if the email address already exists in the database.
-                    else if ($result->num_rows > 0) {
+                    else if ($result2->num_rows > 0) {
                         // Adjust the style according to the available content.
                         echo "<style>
                                     #account-registration-success-container {
@@ -190,7 +210,7 @@ $result = $getEmail->get_result();
                                         height: 350px;
                                     }
                                 </style>";
-                        echo "<h1>Account registration failed!</h1>";
+                        echo "<h1 class='page-title'>Account registration failed!</h1>";
                         echo "<br>";
                         echo "<p>An error has occured while registering your account.</p>";
                         echo "<p>The account you're trying to register already exists in the database.</p>";
@@ -198,7 +218,7 @@ $result = $getEmail->get_result();
                         echo "<p>Please register using a new email address and try again later.</p>";
                     }
                     // Register the account details into the database.
-                    else if (mysqli_query($connection, $query)) {
+                    else if (mysqli_query($connection, $queryRegister)) {
                         echo "<h1>Account registration sucessful!</h1>";
                         echo "<br>";
                         echo "<p>The account details you have input has been succesfully registered!</p>";
@@ -216,7 +236,7 @@ $result = $getEmail->get_result();
                                         height: 500px;
                                     }
                                 </style>";
-                        echo "<h1>Account registration failed!</h1>";
+                        echo "<h1 class='page-title'>Account registration failed!</h1>";
                         echo "<br>";
                         echo "<p>An error has occured while registering your account.</p>";
                         echo "<p>There are a few resons why the registration may have failed.</p>";
@@ -235,7 +255,26 @@ $result = $getEmail->get_result();
             </div>
         </div>
 
-        <br><br><br><br><br>
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+        <br class="desktop-line-break">
+
+        <div id="footer-container-3-mobile">
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <div class="subscription-form">
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="submit" value="Subscribe" class="subscribe-button">
+                </form>
+            </div>
+        </div>
+
+        <div class="hidden-footer-container-3-mobile"></div>
+
+        <br class="mobile-line-break">
+        <br class="mobile-line-break">
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -262,7 +301,7 @@ $result = $getEmail->get_result();
                 </ul>
             </div>
             <div id="footer-container-3">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest changes</p><br>
+                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
                 <div class="subscription-form">
                     <form action="" method="post">
                     <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
