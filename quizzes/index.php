@@ -153,6 +153,11 @@ mysqli_close($connection);
 
         <br>
 
+        <div class="html-example-container">
+            <img class="html-example-image" src="../images/HTML_element_content_categories.svg" alt="HTML elements examples" title="HTML elements examples">
+            HTML elements examples
+        </div>
+
         <div class="quiz-container">
             <table class="hidden-table">
                 <tr>
@@ -162,14 +167,15 @@ mysqli_close($connection);
                     <td class="quiz-description">Try the HTML quiz to test your knowledge.</td>
                 </tr>
             </table>
-            <!-- TODO: To add the logo after fixing the button -->
-            <!-- <img src="../images/HTML5_logo_and_wordmark.svg" alt="HTML logo and wordmark" title="HTML logo and wordmark" width="128" height="128"> -->
-            <div>
+            <img class="html-logo" src="../images/HTML5_logo_and_wordmark.svg" alt="HTML logo and wordmark" title="HTML logo and wordmark">
+            <div class="attempt-quiz-btn-container">
                 <a href="#" class="attempt-quiz-btn-deco">
                     <div class="attempt-quiz-btn">Attempt quiz</div>
                 </a>
             </div>
         </div>
+
+        <div class="hidden-quiz-container"></div>
 
         <br><br>
 
@@ -182,13 +188,15 @@ mysqli_close($connection);
                     <td class="quiz-description">Try the CSS quiz to test your knowledge.</td>
                 </tr>
             </table>
-            <!-- TODO: To add the logo after fixing the button -->
-            <div>
+            <img class="css-logo" src="../images/Official_CSS_Logo.svg" alt="CSS logo and wordmark" title="CSS logo and wordmark">
+            <div class="attempt-quiz-btn-container">
                 <a href="#" class="attempt-quiz-btn-deco">
                     <div class="attempt-quiz-btn">Attempt quiz</div>
                 </a>
             </div>
         </div>
+
+        <div class="hidden-quiz-container"></div>
 
         <br><br><br><br><br>
 

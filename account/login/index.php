@@ -38,9 +38,42 @@ mysqli_close($connection);
     <link href="../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../css/account-login-page.css" rel="stylesheet">
     <link href="../../css/styles-rwd-mobile.css" rel="stylesheet">
+    <link href="../../css/side-navigation-menu.css" rel="stylesheet">
+
+    <script src="../../js/side-navigation-menu.js"></script>
 </head>
 
 <body>
+    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <div id="side-navigation-menu" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close the side navigation menu.">&times;</a>
+        <a href="../../index.php" onclick="closeNav()">Home</a>
+        <a href="../../quizzes/index.php" onclick="closeNav()">Quizzes</a>
+        <a href="../../tips/index.php" onclick="closeNav()">Tips</a>
+        <a href="../../donations/index.php" onclick="closeNav()">Donations</a>
+        <a href="../../contact/index.php" onclick="closeNav()">Contact us</a>
+        <a href="../../about/index.php" onclick="closeNav()">About us</a>
+        <?php
+        if (isset($_SESSION['email'])) {
+            echo "User is logged in.";
+            echo "<a href='../../account/profile/index.php'>Profile</a>";
+            echo "<a href='../../account/results/index.php'>Results</a>";
+            echo "<a href='../../account/logout/index.php'>Logout</a>";
+        }
+        else {
+            echo "<a href='javascript:void(0)' style='opacity: 0;'>Blank space</a>";
+            echo "<a href='javascript:void(0)'>User is not logged in.</a>";
+            echo "<a href='../../account/login/index.php'>Login</a>";
+            echo "<a href='../../account/registration/index.php'>Register</a>";
+        }
+
+        if (isset($isAdmin) == 1) {
+            echo "<a href=''>Admin</a>";
+        }
+        ?>
+    </div>
+    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+
     <div id="basket">
         <div id="circle-header"></div>
 
@@ -56,6 +89,13 @@ mysqli_close($connection);
         <br>
 
         <div id="menu-buttons">
+            <div>
+                <a class="black-hyperlink" href="javascript:void(0)" onclick="openNav()">
+                    <div class="menu-button">
+                        <img src="../../images/Hamburger_icon.svg" alt="Hamburger button icon for side navigation menu." title="Hamburger button icon for side navigation menu.">
+                    </div>
+                </a>
+            </div>
             <div>
                 <a class="black-hyperlink" href="../../index.php">
                     <div class="menu-button">
