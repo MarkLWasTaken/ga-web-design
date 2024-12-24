@@ -190,11 +190,7 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+        <br><br><br><br><br>
 
         <div id="footer-container-3-mobile">
             <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
@@ -208,6 +204,7 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
+        <br class="mobile-line-break">
         <br class="mobile-line-break">
         <br class="mobile-line-break">
 

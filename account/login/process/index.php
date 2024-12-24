@@ -244,15 +244,13 @@ mysqli_close($connection);
                     echo "<br>";
                     echo "<p>Please try again later.</p>";
                 }
-                // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-                mysqli_close($connection);
                 ?>
                 <br>
             </div>
         </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+        <br>
+        <br>
         <br class="desktop-line-break">
         <br class="desktop-line-break">
         <br class="desktop-line-break">
@@ -269,6 +267,7 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
+        <br class="mobile-line-break">
         <br class="mobile-line-break">
         <br class="mobile-line-break">
 

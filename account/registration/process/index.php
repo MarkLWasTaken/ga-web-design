@@ -4,6 +4,9 @@ session_start();
 // Include the PHP script for connecting to the database (DB).
 include '../../../php/connection.php';
 
+// MySQLi statement.
+$mysqli = new mysqli($hostname, $username, $password, $database);
+
 // Set a the default timezone for date and time.
 date_default_timezone_set('Asia/Singapore');
 
@@ -11,32 +14,40 @@ date_default_timezone_set('Asia/Singapore');
 $dateCreated = date('Y/m/d h:i:s a', time());
 
 // Retrieve the values from the account registration page.
-$fname = $_POST['txtFName'];
-$lname = $_POST['txtLName'];
-$email = $_POST['txtEmail'];
-$password = $_POST['txtPassword'];
-$gender = $_POST['rdoGender'];
-$country = $_POST['selCountry'];
+// Hide warning messages when the input fields are null or empty.
+@$fname = $_POST['txtFName'];
+@$lname = $_POST['txtLName'];
+@$email = $_POST['txtEmail'];
+@$password = $_POST['txtPassword'];
+@$gender = $_POST['rdoGender'];
+@$country = $_POST['selCountry'];
 
-// Query to execute
+// Query to execute for registering the account.
 $queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
             VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
 
+// Query to execute and check if the email address exists in the DB
+// by counting the number of rows containing the email address.
+$queryEmailCheck = ("SELECT `email` FROM `users` WHERE `email` = '$email'");
+
+// Query to execute and check if the user credentials exists in the DB.
+// $queryUserCheck = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+
+// Decalre variable to attempt to connect to the DB and execute the SQL query (Registration).
+// $resultRegister = mysqli_query($connection, $queryRegister);
+
+// Decalre variable to attempt to connect to the DB and execute the SQL query (Check email).
+$resultEmailCheck = mysqli_query($connection, $queryEmailCheck);
+
 // Decalre variable to attempt to connect to the DB and execute the SQL query.
-$resultRegister = mysqli_query($connection, $query);
+// $resultUserCheck = mysqli_query($connection, $queryUserCheck);
 
 // For security reasons, prepared statements will be used to prevent SQL injections.
 // To check if the email address already exists in the database.
-$getEmail = $db->prepare("SELECT * FROM `users` WHERE email=$email");
-$getEmail->bind_param("s", $username);
-$getEmail->execute();
-$result2 = $getEmail->get_result();
-
-// Query to execute (Fetch data from the DB).
-$query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-
-// Decalre variable to attempt to connect to the DB and execute the SQL query.
-$result = mysqli_query($connection, $query);
+// $getEmail = $mysqli->prepare("SELECT * FROM `users` WHERE email='$email'");
+// $getEmail->bind_param("s", $email);
+// $getEmail->execute();
+// $resultEmailCheck = $getEmail->get_result();
 
 // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
 mysqli_close($connection);
@@ -113,6 +124,16 @@ mysqli_close($connection);
             <div>
                 <a class="black-hyperlink" href="../../../about/index.php">
                     <div class="menu-button">
+                        About us
+                    </div>
+                </a>
+            </div>
+            <!-- TODO: Need help to fix the dropdown menu. -->
+            <div>
+                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <a class="black-hyperlink" href="javascript:void(0)">
+                    <div class="dropdown">
+                        <div class="menu-button">
                             <?php
                             if (isset($_SESSION['email'])) {
                                 // Online.
@@ -200,7 +221,7 @@ mysqli_close($connection);
                         echo "<p>Please try again later.</p>";
                     }
                     // Check if the email address already exists in the database.
-                    else if ($result2->num_rows > 0) {
+                    else if (mysqli_num_rows($resultEmailCheck)) {
                         // Adjust the style according to the available content.
                         echo "<style>
                                     #account-registration-success-container {
@@ -248,15 +269,13 @@ mysqli_close($connection);
                         echo "<br>";
                         echo "<p>Please try again later.</p>";
                     }
-                    // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-                    mysqli_close($connection);
                 ?>
                 <br>
             </div>
         </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+        <br>
+        <br>
         <br class="desktop-line-break">
         <br class="desktop-line-break">
         <br class="desktop-line-break">
@@ -273,6 +292,7 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
+        <br class="mobile-line-break">
         <br class="mobile-line-break">
         <br class="mobile-line-break">
 

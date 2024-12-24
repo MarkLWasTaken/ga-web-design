@@ -177,8 +177,8 @@ mysqli_close($connection);
             </div>
         </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+        <br>
+        <br>
         <br class="desktop-line-break">
         <br class="desktop-line-break">
         <br class="desktop-line-break">
@@ -195,6 +195,7 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
+        <br class="mobile-line-break">
         <br class="mobile-line-break">
         <br class="mobile-line-break">
 
