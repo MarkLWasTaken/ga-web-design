@@ -29,12 +29,14 @@ mysqli_close($connection);
 
     <title>CodingAssessment - Account Login Process</title>
 
+    <!-- Cascading Style Sheets -->
     <link href="../../../css/styles.css" rel="stylesheet">
     <link href="../../../css/dropdown-menu.css" rel="stylesheet">
     <link href="../../../css/account-login-process.css" rel="stylesheet">
     <link href="../../../css/styles-rwd-mobile.css" rel="stylesheet">
     <link href="../../../css/side-navigation-menu.css" rel="stylesheet">
 
+    <!-- JavaScripts -->
     <script src="../../../js/side-navigation-menu.js"></script>
 </head>
 
@@ -51,19 +53,19 @@ mysqli_close($connection);
         <?php
         if (isset($_SESSION['email'])) {
             echo "User is logged in.";
-            echo "<a href='../../../account/profile/index.php'>Profile</a>";
-            echo "<a href='../../../account/results/index.php'>Results</a>";
-            echo "<a href='../../../account/logout/index.php'>Logout</a>";
+            echo "<a href='../../../account/profile/index.php' onclick='closeNav()'>Profile</a>";
+            echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
+            echo "<a href='../../../account/logout/index.php' onclick='closeNav()'>Logout</a>";
         }
         else {
             echo "<a href='javascript:void(0)' style='opacity: 0;'>Blank space</a>";
             echo "<a href='javascript:void(0)'>User is not logged in.</a>";
-            echo "<a href='../../../account/login/index.php'>Login</a>";
-            echo "<a href='../../../account/registration/index.php'>Register</a>";
+            echo "<a href='../../../account/login/index.php' onclick='closeNav()'>Login</a>";
+            echo "<a href='../../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
         if (isset($isAdmin) == 1) {
-            echo "<a href=''>Admin</a>";
+            echo "<a href='' onclick='closeNav()'>Admin</a>";
         }
         ?>
     </div>

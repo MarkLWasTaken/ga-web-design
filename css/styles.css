@@ -76,6 +76,8 @@ body {
     top: 1%;
 
     border-radius: 20px;
+
+    z-index: 5;
 }
 
 /* Unused */
