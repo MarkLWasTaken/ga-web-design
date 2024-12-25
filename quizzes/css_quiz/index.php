@@ -43,6 +43,15 @@ mysqli_close($connection);
 
     <!-- JavaScripts -->
     <script src="../../js/side-navigation-menu.js"></script>
+
+    <script>
+        function clearOptions() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.checked = false;
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -81,14 +90,14 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <br><br>
+                <br/><br/>
                 CodingAssessment
             </div>
         </div>
 
         <div class="hidden-header-mobile"></div>
 
-        <br>
+        <br/>
 
         <div id="menu-buttons">
             <div>
@@ -157,7 +166,7 @@ mysqli_close($connection);
                             }
                             ?>
                         </div>
-                        <!-- <br> -->
+                        <!-- <br/> -->
                         <div class="dropdown-content">
                             <?php
                             if (isset($_SESSION['email'])) {
@@ -189,33 +198,85 @@ mysqli_close($connection);
             ?>
         </div>
 
-        <br class="desktop-line-break">
+        <br class="desktop-line-break"/>
 
         <h1 class="page-title">CSS Quiz</h1>
 
-        <br>
+        <br/>
 
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
-                <br>
-                <img class="content-circle-image" src="../../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 1
-            </div>
-        </div>
+        <!-- Main content-->
+        <main id="htmlquiz-container">
+            <form id="quizForm" method="post" action="submit_quiz.php"> <!-- You can handle the submission in PHP -->
+                <div class="question">
+                    <p><strong>Question 1</strong></p>
+                    <p>CSS stands for -</p>
+                    <label><input type="radio" name="q1" value="A"> A. Cascade style sheets</label><br/>
+                    <label><input type="radio" name="q1" value="B"> B. Color and style sheets</label><br/>
+                    <label><input type="radio" name="q1" value="C"> C. Cascading style sheets</label><br/>
+                    <label><input type="radio" name="q1" value="D"> D. None of the above</label>
+                </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+                <div class="question">
+                    <p><strong>Question 2</strong></p>
+                    <p>Which of the following is the correct syntax for referring the external style sheet?</p>
+                    <label><input type="radio" name="q2" value="A"> A. < style src = example.css ></label><br/>
+                    <label><input type="radio" name="q2" value="B"> B. < style src = "example.css" ></label><br/>
+                    <label><input type="radio" name="q2" value="C"> C. < stylesheet > example.css < /stylesheet ></label><br/>
+                    <label><input type="radio" name="q2" value="D"> D. < link rel="stylesheet" type="text/css" href="example.css" ></label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 3</strong></p>
+                    <p>The property in CSS used to change the background color of an element is -</p>
+                    <label><input type="radio" name="q3" value="A"> A. bgcolor</label><br/>
+                    <label><input type="radio" name="q3" value="B"> B. color</label><br/>
+                    <label><input type="radio" name="q3" value="C"> C. background-color</label><br/>
+                    <label><input type="radio" name="q3" value="D"> D. All of the above</label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 4</strong></p>
+                    <p>The property in CSS used to change the text color of an element is -</p>
+                    <label><input type="radio" name="q4" value="A"> A. bgcolor</label><br/>
+                    <label><input type="radio" name="q4" value="B"> B. color</label><br/>
+                    <label><input type="radio" name="q4" value="C"> C. background-color</label><br/>
+                    <label><input type="radio" name="q4" value="D"> D. All of the above</label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 5</strong></p>
+                    <p>The CSS property used to control the element's font-size is -</p>
+                    <label><input type="radio" name="q5" value="A"> A. text-style</label><br/>
+                    <label><input type="radio" name="q5" value="B"> B. text-size</label><br/>
+                    <label><input type="radio" name="q5" value="C"> C. font-size</label><br/>
+                    <label><input type="radio" name="q5" value="D"> D. None of the above</label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 6</strong></p>
+                    <p>The HTML attribute used to define the inline styles is -</p>
+                    <label><input type="radio" name="q6" value="A"> A. style</label><br/>
+                    <label><input type="radio" name="q6" value="B"> B. styles</label><br/>
+                    <label><input type="radio" name="q6" value="C"> C. class</label><br/>
+                    <label><input type="radio" name="q6" value="D"> D. None of the above</label>
+                </div>
+
+                <button type="button" onclick="clearOptions()">Clear Options</button>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+
+        <br/>
+        <br/>
+        <br class="desktop-line-break"/>
+        <br class="desktop-line-break"/>
+        <br class="desktop-line-break"/>
 
         <div id="footer-container-3-mobile">
-            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br/>
             <div class="subscription-form">
                 <form action="" method="post">
-                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br/><br/>
                     <input type="submit" value="Subscribe" class="subscribe-button">
                 </form>
             </div>
@@ -223,8 +284,9 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
-        <br class="mobile-line-break">
-        <br class="mobile-line-break">
+        <br class="mobile-line-break"/>
+        <br class="mobile-line-break"/>
+        <br class="mobile-line-break"/>
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -251,10 +313,10 @@ mysqli_close($connection);
                 </ul>
             </div>
             <div id="footer-container-3">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
+                <p class="black-text">Subscribe to our mailing list<br/>to be notified of latest news.</p><br/>
                 <div class="subscription-form">
                     <form action="" method="post">
-                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br><br>
+                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br/><br/>
                         <input type="submit" value="Subscribe" class="subscribe-button">
                     </form>
                 </div>

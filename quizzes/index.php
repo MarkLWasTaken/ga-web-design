@@ -211,11 +211,9 @@ mysqli_close($connection);
             </table>
             <img class="html-logo" src="../images/HTML5_logo_and_wordmark.svg" alt="HTML logo and wordmark" title="HTML logo and wordmark">
             <div class="attempt-quiz-btn-container">
-                <a href="#" class="attempt-quiz-btn-deco">
+                <a href="../quizzes/html_quiz/index.php" class="attempt-quiz-btn-deco">
                     <div class="attempt-quiz-btn">
-                        <a href="html_quiz/index.php">
-                            Attempt quiz
-                        </a>
+                        Attempt Quiz
                     </div>
                 </a>
             </div>
@@ -236,11 +234,9 @@ mysqli_close($connection);
             </table>
             <img class="css-logo" src="../images/Official_CSS_Logo.svg" alt="CSS logo and wordmark" title="CSS logo and wordmark">
             <div class="attempt-quiz-btn-container">
-                <a href="#" class="attempt-quiz-btn-deco">
+                <a href="../quizzes/css_quiz/index.php" class="attempt-quiz-btn-deco">
                     <div class="attempt-quiz-btn">
-                        <a href="css_quiz/index.php">
-                            Attempt quiz
-                        </a>
+                        Attempt Quiz
                     </div>
                 </a>
             </div>

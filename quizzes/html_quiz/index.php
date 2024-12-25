@@ -43,6 +43,15 @@ mysqli_close($connection);
 
     <!-- JavaScripts -->
     <script src="../../js/side-navigation-menu.js"></script>
+
+    <script>
+        function clearOptions() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.checked = false;
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -81,14 +90,14 @@ mysqli_close($connection);
 
         <div id="header" class="website-title">
             <div id="header-2">
-                <br><br>
+                <br/><br/>
                 CodingAssessment
             </div>
         </div>
 
         <div class="hidden-header-mobile"></div>
 
-        <br>
+        <br/>
 
         <div id="menu-buttons">
             <div>
@@ -157,7 +166,7 @@ mysqli_close($connection);
                             }
                             ?>
                         </div>
-                        <!-- <br> -->
+                        <!-- <br/> -->
                         <div class="dropdown-content">
                             <?php
                             if (isset($_SESSION['email'])) {
@@ -189,33 +198,85 @@ mysqli_close($connection);
             ?>
         </div>
 
-        <br class="desktop-line-break">
+        <br class="desktop-line-break"/>
 
         <h1 class="page-title">HTML Quiz</h1>
 
-        <br>
+        <br/>
 
-        <!-- TODO-->
-        <div id="contents-container">
-            <div id="content1" class="content">
-                <br>
-                <img class="content-circle-image" src="../../images/img01.jpg" alt="Image #1">
-                <br>
-                Content 1
-            </div>
-        </div>
+        <!-- Main content-->
+        <main id="htmlquiz-container">
+            <form id="quizForm" method="post" action="submit_quiz.php"> <!-- You can handle the submission in PHP -->
+                <div class="question">
+                    <p><strong>Question 1</strong></p>
+                    <p>HTML stands for -</p>
+                    <label><input type="radio" name="q1" value="A"> A. HighText Machine Language</label><br/>
+                    <label><input type="radio" name="q1" value="B"> B. HyperText and links Markup Language</label><br/>
+                    <label><input type="radio" name="q1" value="C"> C. HyperText Markup Language</label><br/>
+                    <label><input type="radio" name="q1" value="D"> D. None of these</label>
+                </div>
 
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
-        <br class="desktop-line-break">
+                <div class="question">
+                    <p><strong>Question 2</strong></p>
+                    <p>The correct sequence of HTML tags for starting a webpage is -</p>
+                    <label><input type="radio" name="q2" value="A"> A. Head, Title, HTML, body</label><br/>
+                    <label><input type="radio" name="q2" value="B"> B. HTML, Body, Title, Head</label><br/>
+                    <label><input type="radio" name="q2" value="C"> C. HTML, Head, Title, Body</label><br/>
+                    <label><input type="radio" name="q2" value="D"> D. HTML, Head, Title, Body</label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 3</strong></p>
+                    <p>Which of the following element is responsible for making the text bold in HTML?</p>
+                    <label><input type="radio" name="q3" value="A"> A. < pre ></label><br/>
+                    <label><input type="radio" name="q3" value="B"> B. < a ></label><br/>
+                    <label><input type="radio" name="q3" value="C"> C. < b ></label><br/>
+                    <label><input type="radio" name="q3" value="D"> D. < br ></label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 4</strong></p>
+                    <p>Which of the following tag is used for inserting the largest heading in HTML?</p>
+                    <label><input type="radio" name="q4" value="A"> A. < h3 ></label><br/>
+                    <label><input type="radio" name="q4" value="B"> B. < h1 ></label><br/>
+                    <label><input type="radio" name="q4" value="C"> C. < h5 ></label><br/>
+                    <label><input type="radio" name="q4" value="D"> D. < h6 ></label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 5</strong></p>
+                    <p>Which of the following tag is used to insert a line-break in HTML?</p>
+                    <label><input type="radio" name="q5" value="A"> A. < br ></label><br/>
+                    <label><input type="radio" name="q5" value="B"> B. < a ></label><br/>
+                    <label><input type="radio" name="q5" value="C"> C. < pre ></label><br/>
+                    <label><input type="radio" name="q5" value="D"> D. < b ></label>
+                </div>
+
+                <div class="question">
+                    <p><strong>Question 6</strong></p>
+                    <p>How to create an unordered list (a list with the list items in bullets) in HTML?</p>
+                    <label><input type="radio" name="q6" value="A"> A. < ul ></label><br/>
+                    <label><input type="radio" name="q6" value="B"> B. < ol ></label><br/>
+                    <label><input type="radio" name="q6" value="C"> C. < li ></label><br/>
+                    <label><input type="radio" name="q6" value="D"> D. < i ></label>
+                </div>
+
+                <button type="button" onclick="clearOptions()">Clear Options</button>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+
+        <br/>
+        <br/>
+        <br class="desktop-line-break"/>
+        <br class="desktop-line-break"/>
+        <br class="desktop-line-break"/>
 
         <div id="footer-container-3-mobile">
-            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br>
+            <p class="black-text">Subscribe to our mailing list to be notified of latest news.</p><br/>
             <div class="subscription-form">
                 <form action="" method="post">
-                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br><br>
+                    <input type="email" name="email" placeholder="Enter your email address" class="subscribe-textbox" required><br/><br/>
                     <input type="submit" value="Subscribe" class="subscribe-button">
                 </form>
             </div>
@@ -223,8 +284,9 @@ mysqli_close($connection);
 
         <div class="hidden-footer-container-3-mobile"></div>
 
-        <br class="mobile-line-break">
-        <br class="mobile-line-break">
+        <br class="mobile-line-break"/>
+        <br class="mobile-line-break"/>
+        <br class="mobile-line-break"/>
 
         <div id="footer-container" class="footer-text">
             <div id="footer-container-2">
@@ -251,10 +313,10 @@ mysqli_close($connection);
                 </ul>
             </div>
             <div id="footer-container-3">
-                <p class="black-text">Subscribe to our mailing list<br>to be notified of latest news.</p><br>
+                <p class="black-text">Subscribe to our mailing list<br/>to be notified of latest news.</p><br/>
                 <div class="subscription-form">
                     <form action="" method="post">
-                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br><br>
+                        <input type="text" id="email" name="email" placeholder="Enter your email address" class="subscribe-textbox"><br/><br/>
                         <input type="submit" value="Subscribe" class="subscribe-button">
                     </form>
                 </div>
