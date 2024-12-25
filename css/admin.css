@@ -1,0 +1,75 @@
+
+/* table, th, td {
+    border: 2px solid black;
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+
+tr, th, td {
+    border-collapse: inherit;
+} */
+
+.query-table table {
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.query-table tr {
+    height: 40px;
+}
+
+.query-table th, .query-table td {
+    border: 1px solid black;
+}
+
+.query-table th {
+    width: 30%;
+    padding-left: 10px;
+    text-align: left;
+}
+
+/* .database-query-table-header th {
+    padding-left: 0;
+    text-align: center;
+} */
+
+.query-table td {
+    width: 375px;
+    padding: 10px;
+}
+
+.table-names-cb {
+    width: 350px;
+    font-size: 18px;
+}
+
+input[type="text"] {
+    width: 350px;
+    font-size: 18px;
+}
+
+input[type="email"] {
+    width: 350px;
+    font-size: 18px;
+}
+
+.radio-choice {
+    height: 40px;
+}
+
+
+/* th, td {
+    padding: 200px, 10px, 10px, 10px;
+} */
+
+/* input[type="submit"] {
+    width: 100%;
+    font-size: 18px;
+} */
+
+.hidden-div {
+    height: 40px;
+}
