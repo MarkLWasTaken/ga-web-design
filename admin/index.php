@@ -390,10 +390,6 @@ session_start();
                                 <td><input type="email" name="txtEmail" id=""></td>
                             </tr>
                             <tr>
-                                <th>Bank Account Number:</th>
-                                <td><input type="text" name="txtBankAccountNumber" id=""></td>
-                            </tr>
-                            <tr>
                                 <th>Amount Donated:</th>
                                 <td><input type="text" name="txtAmountDonated" id=""></td>
                             </tr>
@@ -412,7 +408,6 @@ session_start();
                             // Suppress the warning message when the variables are null or empty.
                             @$_SESSION['txtID'] = $_POST['txtID'];
                             @$_SESSION['txtEmail'] = $_POST['txtEmail'];
-                            @$_SESSION['txtBankAccountNumber'] = $_POST['txtBankAccountNumber'];
                             @$_SESSION['txtAmountDonated'] = $_POST['txtAmountDonated'];
                             @$_SESSION['txtDateDonated'] = $_POST['txtDateDonated'];
                         } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
@@ -506,14 +501,6 @@ session_start();
                                 </td>
                             </tr>
                             <tr>
-                                <th>Date First Subscribed:</th>
-                                <td><input type="text" name="txtDateFirstSubscribed" id=""></td>
-                            </tr>
-                            <tr>
-                                <th>Date Modified:</th>
-                                <td><input type="text" name="txtDateModified" id=""></td>
-                            </tr>
-                            <tr>
                                 <th>Action:</th>
                                 <td><input type="submit" value="Search from the table"></td>
                             </tr>
@@ -526,7 +513,6 @@ session_start();
                             @$_SESSION['txtEmail'] = $_POST['txtEmail'];
                             @$_SESSION['rdoSubscribed'] = $_POST['rdoSubscribed'];
                             @$_SESSION['txtDateFirstSubscribed'] = $_POST['txtDateFirstSubscribed'];
-                            @$_SESSION['txtDateModified'] = $_POST['txtDateModified'];
                         } else if ($_SESSION['selected_table'] == 'users') {
                             // Use heredoc syntax to make the code readable and easier to maintain.
                             // Very useful for handling large blocks of of codes.
@@ -608,99 +594,312 @@ session_start();
 
         <!-- TODO -->
 
-        <table class="manage-rows-table" border=1>
-            <?php
-                if ($_SESSION['selected_table'] == 'contact_us') {
+        <?php
+            if (isset($_SESSION['selected_table'])) {
+                echo '<table class="manage-rows-table" border=1>';
+                    if ($_SESSION['selected_table'] == 'contact_us') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Message</th>
+                                <th>Date Submitted</th>
+                            </tr>
+                        HTML;
+                        echo $html;
 
-                } else if ($_SESSION['selected_table'] == 'css_quiz_answers') {
-                    // Use heredoc syntax to make the code readable and easier to maintain.
-                    // Very useful for handling large blocks of of codes.
-                    $html = <<<HTML
-                    //
-                    HTML;
-                    echo $html;
-                } else if ($_SESSION['selected_table'] == 'donations') {
-                    // Use heredoc syntax to make the code readable and easier to maintain.
-                    // Very useful for handling large blocks of of codes.
-                    $html = <<<HTML
-                    //
-                    HTML;
-                    echo $html;
-                } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
-                    // Use heredoc syntax to make the code readable and easier to maintain.
-                    // Very useful for handling large blocks of of codes.
-                    $html = <<<HTML
-                    //
-                    HTML;
-                    echo $html;
-                } else if ($_SESSION['selected_table'] == 'mailing_list') {
-                    // Use heredoc syntax to make the code readable and easier to maintain.
-                    // Very useful for handling large blocks of of codes.
-                    $html = <<<HTML
-                    //
-                    HTML;
-                    echo $html;
-                } else if ($_SESSION['selected_table'] == 'users') {
-                    // Use heredoc syntax to make the code readable and easier to maintain.
-                    // Very useful for handling large blocks of of codes.
-                    $html = <<<HTML
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email Address</th>
-                            <th>Gender</th>
-                            <th>Country</th>
-                            <th>Is Admin?</th>
-                            <th colspan="2">Actions</th>
-                        </tr>
-                    HTML;
-                    echo $html;
-                    // Declare a variable for the query.
-                    $query_table_rows = "SELECT * FROM `$selected_table` ORDER BY user_id ASC";
+                        // Declare variables to get the data.
+                        $contact_us_id = $_SESSION['txtID'];
+                        $name = $_SESSION['txtName'];
+                        $email_address = $_SESSION['txtEmail'];
+                        $message = $_SESSION['txtMessage'];
+                        $date_submitted = $_SESSION['txtDateSubmitted'];
 
-                    // Attempt to connect to the database and execute the query.
-                    $result_table_rows = mysqli_query($connection, $query_table_rows);
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            contact_us_id LIKE '%$contact_us_id%' AND
+                                            name LIKE '%$name%' AND
+                                            email_address LIKE '%$email_address%' AND
+                                            message LIKE '%$message%' AND
+                                            date_submitted LIKE '%$date_submitted%'
+                                            ORDER BY contact_us_id ASC";
 
-                    // Insert the each of the results into the table.
-                    while($row = mysqli_fetch_assoc($result_table_rows)) {
-                            echo '<tr>';
-                                echo "<td>{$row['user_id']}</td>";
-                                echo "<td>{$row['first_name']}</td>";
-                                echo "<td>{$row['last_name']}</td>";
-                                echo "<td>{$row['email_address']}</td>";
-                                echo "<td>{$row['gender']}</td>";
-                                echo "<td>{$row['country']}</td>";
-                                echo "<td>{$row['is_admin']}</td>";
-                                echo "<td><a href=\"edit.php?id={$row['user_id']}\">Edit</a></td>";
-                                echo "<td><a href=\"delete.php?id={$row['user_id']}\">Delete</a></td>";
-                            echo '</tr>';
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['contact_us_id']}</td>";
+                                    echo "<td>{$row['name']}</td>";
+                                    echo "<td>{$row['email_address']}</td>";
+                                    echo "<td>{$row['message']}</td>";
+                                    echo "<td>{$row['date_submitted']}</td>";
+                                echo '</tr>';
+                        }
+                    } else if ($_SESSION['selected_table'] == 'css_quiz_answers') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>User ID</th>
+                                <th>Date Attempted</th>
+                                <th>Date Submitted</th>
+                                <th>Q1 Answer</th>
+                                <th>Q2 Answer</th>
+                                <th>Q3 Answer</th>
+                                <th>Q4 Answer</th>
+                                <th>Q5 Answer</th>
+                                <th>Q6 Answer</th>
+                            </tr>
+                        HTML;
+                        echo $html;
+
+                        // Declare variables to get the data.
+                        $css_quiz_answers_id = $_SESSION['txtID'];
+                        $user_id = $_SESSION['txtUserID'];
+                        $date_attempted = $_SESSION['txtDateAttempted'];
+                        $date_submitted = $_SESSION['txtDateSubmitted'];
+                        $q1_answer = $_SESSION['txtQ1Answer'];
+                        $q2_answer = $_SESSION['txtQ2Answer'];
+                        $q3_answer = $_SESSION['txtQ3Answer'];
+                        $q4_answer = $_SESSION['txtQ4Answer'];
+                        $q5_answer = $_SESSION['txtQ5Answer'];
+                        $q6_answer = $_SESSION['txtQ6Answer'];
+
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            css_quiz_answers_id LIKE '%$css_quiz_answers_id%' AND
+                                            user_id LIKE '%$user_id%' AND
+                                            date_attempted LIKE '%$date_attempted%' AND
+                                            date_submitted LIKE '%$date_submitted%' AND
+                                            q1_answer LIKE '%$q1_answer%' AND
+                                            q2_answer LIKE '%$q2_answer%' AND
+                                            q3_answer LIKE '%$q3_answer%' AND
+                                            q4_answer LIKE '%$q4_answer%' AND
+                                            q5_answer LIKE '%$q5_answer%' AND
+                                            q6_answer LIKE '%$q6_answer%'
+                                            ORDER BY css_quiz_answers_id ASC";
+
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['css_quiz_answers_id']}</td>";
+                                    echo "<td>{$row['user_id']}</td>";
+                                    echo "<td>{$row['date_attempted']}</td>";
+                                    echo "<td>{$row['date_submitted']}</td>";
+                                    echo "<td>{$row['q1_answer']}</td>";
+                                    echo "<td>{$row['q2_answer']}</td>";
+                                    echo "<td>{$row['q3_answer']}</td>";
+                                    echo "<td>{$row['q4_answer']}</td>";
+                                    echo "<td>{$row['q5_answer']}</td>";
+                                    echo "<td>{$row['q6_answer']}</td>";
+                                echo '</tr>';
+                        }
+                    } else if ($_SESSION['selected_table'] == 'donations') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>Email Address</th>
+                                <th>Amount Donated</th>
+                                <th>Date Donated</th>
+                            </tr>
+                        HTML;
+                        echo $html;
+
+                        // Declare variables to get the data.
+                        $donation_id = $_SESSION['txtID'];
+                        $email_address = $_SESSION['txtEmail'];
+                        $amount_donated = $_SESSION['txtAmountDonated'];
+                        $date_donated = $_SESSION['txtDateDonated'];
+
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            donation_id LIKE '%$donation_id%' AND
+                                            email_address LIKE '%$email_address%' AND
+                                            amount_donated LIKE '%$amount_donated%' AND
+                                            date_donated LIKE '%$date_donated%'
+                                            ORDER BY donation_id ASC";
+
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['donation_id']}</td>";
+                                    echo "<td>{$row['email_address']}</td>";
+                                    echo "<td>{$row['amount_donated']}</td>";
+                                    echo "<td>{$row['date_donated']}</td>";
+                                echo '</tr>';
+                        }
+                    } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>User ID</th>
+                                <th>Date Attempted</th>
+                                <th>Date Submitted</th>
+                                <th>Q1 Answer</th>
+                                <th>Q2 Answer</th>
+                                <th>Q3 Answer</th>
+                                <th>Q4 Answer</th>
+                                <th>Q5 Answer</th>
+                                <th>Q6 Answer</th>
+                            </tr>
+                        HTML;
+                        echo $html;
+
+                        // Declare variables to get the data.
+                        $html_quiz_answers_id = $_SESSION['txtID'];
+                        $user_id = $_SESSION['txtUserID'];
+                        $date_attempted = $_SESSION['txtDateAttempted'];
+                        $date_submitted = $_SESSION['txtDateSubmitted'];
+                        $q1_answer = $_SESSION['txtQ1Answer'];
+                        $q2_answer = $_SESSION['txtQ2Answer'];
+                        $q3_answer = $_SESSION['txtQ3Answer'];
+                        $q4_answer = $_SESSION['txtQ4Answer'];
+                        $q5_answer = $_SESSION['txtQ5Answer'];
+                        $q6_answer = $_SESSION['txtQ6Answer'];
+
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            html_quiz_answers_id LIKE '%$html_quiz_answers_id%' AND
+                                            user_id LIKE '%$user_id%' AND
+                                            date_attempted LIKE '%$date_attempted%' AND
+                                            date_submitted LIKE '%$date_submitted%' AND
+                                            q1_answer LIKE '%$q1_answer%' AND
+                                            q2_answer LIKE '%$q2_answer%' AND
+                                            q3_answer LIKE '%$q3_answer%' AND
+                                            q4_answer LIKE '%$q4_answer%' AND
+                                            q5_answer LIKE '%$q5_answer%' AND
+                                            q6_answer LIKE '%$q6_answer%'
+                                            ORDER BY html_quiz_answers_id ASC";
+
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['html_quiz_answers_id']}</td>";
+                                    echo "<td>{$row['user_id']}</td>";
+                                    echo "<td>{$row['date_attempted']}</td>";
+                                    echo "<td>{$row['date_submitted']}</td>";
+                                    echo "<td>{$row['q1_answer']}</td>";
+                                    echo "<td>{$row['q2_answer']}</td>";
+                                    echo "<td>{$row['q3_answer']}</td>";
+                                    echo "<td>{$row['q4_answer']}</td>";
+                                    echo "<td>{$row['q5_answer']}</td>";
+                                    echo "<td>{$row['q6_answer']}</td>";
+                                echo '</tr>';
+                        }
+                    } else if ($_SESSION['selected_table'] == 'mailing_list') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>Email Address</th>
+                                <th>Is subscribed</th>
+                            </tr>
+                        HTML;
+                        echo $html;
+
+                        // Declare variables to get the data.
+                        $mailing_list_id = $_SESSION['txtID'];
+                        $email_address = $_SESSION['txtEmail'];
+                        $is_subscribed = $_SESSION['rdoSubscribed'];
+
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            mailing_list_id LIKE '%$mailing_list_id%' AND
+                                            email_address LIKE '%$email_address%' AND
+                                            is_subscribed LIKE '%$is_subscribed%'
+                                            ORDER BY mailing_list_id ASC";
+
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['mailing_list_id']}</td>";
+                                    echo "<td>{$row['email_address']}</td>";
+                                    echo "<td>{$row['is_subscribed']}</td>";
+                                echo '</tr>';
+                        }
+                    } else if ($_SESSION['selected_table'] == 'users') {
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email Address</th>
+                                <th>Gender</th>
+                                <th>Country</th>
+                                <th>Is Admin</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                        HTML;
+                        echo $html;
+
+                        // Declare variables to get the data.
+                        $user_id = $_SESSION['txtID'];
+                        $first_name = $_SESSION['txtFName'];
+                        $last_name = $_SESSION['txtLName'];
+                        $email_address = $_SESSION['txtEmail'];
+                        $gender = $_SESSION['rdoGender'];
+                        $country = $_SESSION['txtCountry'];
+                        $is_admin = $_SESSION['rdoAdmin'];
+
+                        // Declare a variable for the query.
+                        $query_table_rows = "SELECT * FROM `$selected_table` WHERE
+                                            user_id LIKE '%$user_id%' AND
+                                            first_name LIKE '%$first_name%' AND
+                                            last_name LIKE '%$last_name%' AND
+                                            email_address LIKE '%$email_address%' AND
+                                            gender LIKE '%$gender%' AND
+                                            country LIKE '%$country%' AND
+                                            is_admin LIKE '%$is_admin%'
+                                            ORDER BY user_id ASC";
+
+                        // Attempt to connect to the database and execute the query.
+                        $result_table_rows = mysqli_query($connection, $query_table_rows);
+
+                        // Insert the each of the results into the table.
+                        while($row = mysqli_fetch_assoc($result_table_rows)) {
+                                echo '<tr>';
+                                    echo "<td>{$row['user_id']}</td>";
+                                    echo "<td>{$row['first_name']}</td>";
+                                    echo "<td>{$row['last_name']}</td>";
+                                    echo "<td>{$row['email_address']}</td>";
+                                    echo "<td>{$row['gender']}</td>";
+                                    echo "<td>{$row['country']}</td>";
+                                    echo "<td>{$row['is_admin']}</td>";
+                                    echo "<td><a href=\"edit.php?id={$row['user_id']}\">Edit</a></td>";
+                                    echo "<td><a href=\"delete.php?id={$row['user_id']}\">Delete</a></td>";
+                                echo '</tr>';
+                        }
                     }
-
-                // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-                mysqli_close($connection);
-            ?>
-        </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                    mysqli_close($connection);
+                echo '</table>';
+            }
+        ?>
 
         </div>
 

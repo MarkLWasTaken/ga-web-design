@@ -96,7 +96,7 @@ input[type="email"] {
 }
 
 .manage-rows-table th {
-    width: 40%;
+    width: 100%;
     padding-left: 10px;
     text-align: left;
 }
