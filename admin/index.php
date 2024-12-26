@@ -197,7 +197,7 @@ else {
 
         <div class="query-table">
             <form action="index.php" method="post">
-                <table>
+                <table id="database-query">
                     <tr>
                         <th colspan="2" style="padding-left: 0; text-align: center;">Database Query</th>
                     </tr>
@@ -215,6 +215,9 @@ else {
                             // Suppress the warning message epon loading the page first time.
                             // Get the selected value from the combo box.
                             @$selected_table = $_POST['cbTableName'];
+
+                            // Store the variable in session.
+                            $_SESSION['selected_table'] = $selected_table;
 
                             // Display the combo box.
                             echo '<select class="table-names-cb" name="cbTableName">';
@@ -261,76 +264,285 @@ else {
                         <td><input type="submit" value="Search from the database"></td>
                     </tr>
                 </table>
-            </form>
-        </div>
 
         <div class="hidden-div"></div>
 
-
-
-
-
-
-
-        <div class="query-table">
-            <form action="index.php" method="post">
-                <table>
+                <table id="table-query">
+                    <tr>
+                        <th colspan="2" style="padding-left: 0; text-align: center;"><?php echo $_SESSION['selected_table'];?> Table Query</th>
+                    </tr>
                     <?php
                     if ($_SESSION['selected_table'] == 'contact_us') {
-
-                    } else if ($_SESSION['selected_table'] == 'contact_us') {
-
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Name:</th>
+                            <td><input type="text" name="txtName" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Message:</th>
+                            <td><input type="text" name="txtMessage" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted:</th>
+                            <td><input type="text" name="txtDateSubmitted" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     } else if ($_SESSION['selected_table'] == 'css_quiz_answers') {
-
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>User ID:</th>
+                            <td><input type="text" name="txtUserID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Attempted:</th>
+                            <td><input type="text" name="txtDateAttempted" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted:</th>
+                            <td><input type="text" name="txtDateSubmitted" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q1 Answer:</th>
+                            <td><input type="text" name="txtQ1Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q2 Answer:</th>
+                            <td><input type="text" name="txtQ2Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q3 Answer:</th>
+                            <td><input type="text" name="txtQ3Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q4 Answer:</th>
+                            <td><input type="text" name="txtQ4Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q5 Answer:</th>
+                            <td><input type="text" name="txtQ5Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q6 Answer:</th>
+                            <td><input type="text" name="txtQ6Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     } else if ($_SESSION['selected_table'] == 'donations') {
-
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Bank Account Number:</th>
+                            <td><input type="text" name="txtBankAccountNumber" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Amount Donated:</th>
+                            <td><input type="text" name="txtAmountDonated" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Donated:</th>
+                            <td><input type="text" name="txtDateDonated" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
-
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>User ID:</th>
+                            <td><input type="text" name="txtUserID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Attempted:</th>
+                            <td><input type="text" name="txtDateAttempted" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted:</th>
+                            <td><input type="text" name="txtDateSubmitted" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q1 Answer:</th>
+                            <td><input type="text" name="txtQ1Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q2 Answer:</th>
+                            <td><input type="text" name="txtQ2Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q3 Answer:</th>
+                            <td><input type="text" name="txtQ3Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q4 Answer:</th>
+                            <td><input type="text" name="txtQ4Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q5 Answer:</th>
+                            <td><input type="text" name="txtQ5Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Q6 Answer:</th>
+                            <td><input type="text" name="txtQ6Answer" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     } else if ($_SESSION['selected_table'] == 'mailing_list') {
-
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Is subscribed?</th>
+                            <td>
+                                <div class="radio-choice">
+                                    <div class="radio-choices">
+                                        <input type="radio" id="yes" name="rdoSubscribed" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                    </div>
+                                    <div class="radio-choices">
+                                        <input type="radio" id="no" name="rdoSubscribed" value="No">
+                                        <label for="no">No</label><br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Date First Subscribed:</th>
+                            <td><input type="text" name="txtDateFirstSubscribed" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Modified:</th>
+                            <td><input type="text" name="txtDateModified" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     } else if ($_SESSION['selected_table'] == 'users') {
-                        echo '<tr>';
-                            echo '<th colspan="2" style="padding-left: 0; text-align: center;"> Table Query</th>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>ID:</th>';
-                            echo '<td><input type="text" name="txtID" id=""></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>First Name:</th>';
-                            echo '<td><input type="text" name="txtFName" id=""></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>Last Name:</th>';
-                            echo '<td><input type="text" name="txtLName" id=""></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>Email Address:</th>';
-                            echo '<td><input type="email" name="txtEmail" id=""></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>Gender:</th>';
-                            echo '<td>';
-                                echo '<div class="radio-choice">';
-                                    echo '<input type="radio" id="male" name="rdoGender" value="Male">';
-                                    echo '<label for="male">Male</label><br>';
-                                    echo '<input type="radio" id="female" name="rdoGender" value="Female">';
-                                    echo '<label for="female">Female</label><br>';
-                                echo '</div>';
-                            echo '</td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>Country:</th>';
-                            echo '<td><input type="text" name="txtCountry" id=""></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                            echo '<th>Action:</th>';
-                            echo '<td><input type="submit" value="Search from the table"></td>';
-                        echo '</tr>';
-                        // Store the variable in session.
-                        $_SESSION['selected_table'] = $selected_table;    
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <tr>
+                            <th>ID:</th>
+                            <td><input type="text" name="txtID" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>First Name:</th>
+                            <td><input type="text" name="txtFName" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Last Name:</th>
+                            <td><input type="text" name="txtLName" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address:</th>
+                            <td><input type="email" name="txtEmail" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>
+                                <div class="radio-choice">
+                                    <div class="radio-choices">
+                                    <input type="radio" id="male" name="rdoGender" value="Male">
+                                    <label for="male">Male</label><br>
+                                </div>
+                                <div class="radio-choices">
+                                    <input type="radio" id="female" name="rdoGender" value="Female">
+                                    <label for="female">Female</label><br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Country:</th>
+                            <td><input type="text" name="txtCountry" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Is admin?</th>
+                            <td>
+                                <div class="radio-choice">
+                                    <div class="radio-choices">
+                                        <input type="radio" id="yes" name="rdoAdmin" value="Yes">
+                                        <label for="yes">Yes</label><br>
+                                    </div>
+                                    <div class="radio-choices">
+                                        <input type="radio" id="no" name="rdoAdmin" value="No">
+                                        <label for="no">No</label><br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Date Created:</th>
+                            <td><input type="text" name="txtDateCreated" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Date Modified:</th>
+                            <td><input type="text" name="txtDateModified" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Action:</th>
+                            <td><input type="submit" value="Search from the table"></td>
+                        </tr>
+                        HTML;
+                        echo $html;
                     }
-                    ?><?php echo $selected_table; ?><br><?php echo $_SESSION['selected_table'];?>
+                    ?>
                 </table>
             </form>
         </div>
