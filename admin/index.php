@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+// Users who are not website administrators (admins) are not allowed to access this page.
+// if(isset($_SESSION['is_admin'])){
+//     // Do nothing.
+// } else {
+//     header('Location: index.php');
+// }
+
 // Include the PHP script for connecting to the database (DB).
 include '../php/connection.php';
 
@@ -212,7 +219,7 @@ else {
                             // Attempt to conenct to the DB, execute the query and get results.
                             $result_show_tables = mysqli_query($connection, $query_show_tables);
 
-                            // Suppress the warning message epon loading the page first time.
+                            // Suppress the warning message when the variables are null or empty.
                             // Get the selected value from the combo box.
                             @$selected_table = $_POST['cbTableName'];
 
@@ -269,7 +276,7 @@ else {
 
                 <table id="table-query">
                     <tr>
-                        <th colspan="2" style="padding-left: 0; text-align: center;"><?php echo $_SESSION['selected_table'];?> Table Query</th>
+                        <th colspan="2" style="padding-left: 0; text-align: center;">"<?php echo $_SESSION['selected_table'];?>" Table Query</th>
                     </tr>
                     <?php
                     if ($_SESSION['selected_table'] == 'contact_us') {
@@ -302,6 +309,14 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        @$_SESSION['txtID'] = $_POST['txtID'];
+                        @$_SESSION['txtName'] = $_POST['txtName'];
+                        @$_SESSION['txtEmail'] = $_POST['txtEmail'];
+                        @$_SESSION['txtMessage'] = $_POST['txtMessage'];
+                        @$_SESSION['txtDateSubmitted'] = $_POST['txtDateSubmitted'];
                     } else if ($_SESSION['selected_table'] == 'css_quiz_answers') {
                         // Use heredoc syntax to make the code readable and easier to maintain.
                         // Very useful for handling large blocks of of codes.
@@ -352,6 +367,19 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        @$_SESSION['txtID'] = $_POST['txtID'];
+                        @$_SESSION['txtUserID'] = $_POST['txtUserID'];
+                        @$_SESSION['txtDateAttempted'] = $_POST['txtDateAttempted'];
+                        @$_SESSION['txtDateSubmitted'] = $_POST['txtDateSubmitted'];
+                        @$_SESSION['txtQ1Answer'] = $_POST['txtQ1Answer'];
+                        @$_SESSION['txtQ2Answer'] = $_POST['txtQ2Answer'];
+                        @$_SESSION['txtQ3Answer'] = $_POST['txtQ3Answer'];
+                        @$_SESSION['txtQ4Answer'] = $_POST['txtQ4Answer'];
+                        @$_SESSION['txtQ5Answer'] = $_POST['txtQ5Answer'];
+                        @$_SESSION['txtQ6Answer'] = $_POST['txtQ6Answer'];
                     } else if ($_SESSION['selected_table'] == 'donations') {
                         // Use heredoc syntax to make the code readable and easier to maintain.
                         // Very useful for handling large blocks of of codes.
@@ -382,6 +410,14 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
                     } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
                         // Use heredoc syntax to make the code readable and easier to maintain.
                         // Very useful for handling large blocks of of codes.
@@ -432,6 +468,19 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        @$_SESSION['txtID'] = $_POST['txtID'];
+                        @$_SESSION['txtUserID'] = $_POST['txtUserID'];
+                        @$_SESSION['txtDateAttempted'] = $_POST['txtDateAttempted'];
+                        @$_SESSION['txtDateSubmitted'] = $_POST['txtDateSubmitted'];
+                        @$_SESSION['txtQ1Answer'] = $_POST['txtQ1Answer'];
+                        @$_SESSION['txtQ2Answer'] = $_POST['txtQ2Answer'];
+                        @$_SESSION['txtQ3Answer'] = $_POST['txtQ3Answer'];
+                        @$_SESSION['txtQ4Answer'] = $_POST['txtQ4Answer'];
+                        @$_SESSION['txtQ5Answer'] = $_POST['txtQ5Answer'];
+                        @$_SESSION['txtQ6Answer'] = $_POST['txtQ6Answer'];
                     } else if ($_SESSION['selected_table'] == 'mailing_list') {
                         // Use heredoc syntax to make the code readable and easier to maintain.
                         // Very useful for handling large blocks of of codes.
@@ -473,6 +522,15 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
                     } else if ($_SESSION['selected_table'] == 'users') {
                         // Use heredoc syntax to make the code readable and easier to maintain.
                         // Very useful for handling large blocks of of codes.
@@ -541,6 +599,19 @@ else {
                         </tr>
                         HTML;
                         echo $html;
+
+                        // Declare the variables and store it in the session.
+                        // Suppress the warning message when the variables are null or empty.
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
+                        // @$_SESSION[''] = $_POST[''];
                     }
                     ?>
                 </table>
