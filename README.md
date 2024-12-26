@@ -8,22 +8,22 @@ There are about a total of 16 web pages for this project.
 
 Home (index.php)
 
-Quizzes
-HTML Quiz (quizzes/html_quiz)
+Quizzes<br>
+HTML Quiz (quizzes/html_quiz)<br>
 CSS Quiz (quizzes/css_quiz)
 
-Tips
-Donations
-Contact us
+Tips<br>
+Donations<br>
+Contact us<br>
 About us
 
-Account (No webpage for this)
-Account registration
-Account registration process
-Account login
-Account login process
-Profile
-Results
+Account (No webpage for this)<br>
+Account registration<br>
+Account registration process<br>
+Account login<br>
+Account login process<br>
+Profile<br>
+Results<br>
 Account logout
 
 Admin page (Manage database records)
