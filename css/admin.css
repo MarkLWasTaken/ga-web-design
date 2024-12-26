@@ -78,3 +78,30 @@ input[type="email"] {
 .hidden-div {
     height: 40px;
 }
+
+.manage-rows-table table {
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.manage-rows-table tr {
+    height: 40px;
+}
+
+.manage-rows-table th, .manage-rows-table td {
+    border: 1px solid black;
+}
+
+.manage-rows-table th {
+    width: 40%;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.manage-rows-table td {
+    width: 375px;
+    padding: 10px;
+}
