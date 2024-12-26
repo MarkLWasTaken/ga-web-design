@@ -25,5 +25,5 @@ Account login process<br>
 
 Profile<br>
 Results<br>
-Admin page (Manage database records, only accessible by admins)
+Admin page (Manage database records, only accessible by admins)<br>
 Account logout
