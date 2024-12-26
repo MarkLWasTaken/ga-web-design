@@ -23,12 +23,12 @@ $dateCreated = date('Y/m/d h:i:s a', time());
 @$country = $_POST['selCountry'];
 
 // Query to execute for registering the account.
-$queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
+$queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email_address`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
             VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
 
 // Query to execute and check if the email address exists in the DB
 // by counting the number of rows containing the email address.
-$queryEmailCheck = ("SELECT `email` FROM `users` WHERE `email` = '$email'");
+$queryEmailCheck = ("SELECT `email_address` FROM `users` WHERE `email_address` = '$email'");
 
 // Query to execute and check if the user credentials exists in the DB.
 // $queryUserCheck = "SELECT * FROM users WHERE email='$email' AND password='$password'";
@@ -48,6 +48,21 @@ $resultEmailCheck = mysqli_query($connection, $queryEmailCheck);
 // $getEmail->bind_param("s", $email);
 // $getEmail->execute();
 // $resultEmailCheck = $getEmail->get_result();
+
+// Declare the variable to get the user ID and hide the warning message.
+@$user_id = $_SESSION['id'];
+
+// Check if the guest or user logged in is an admin or not.
+if ($user_id == null) {
+    // Do nothing.
+}
+else {
+    // Execute the query to get the user's role status.
+    $result = $connection->query("SELECT is_admin FROM users WHERE id = $user_id");
+    while ($row = $result->fetch_assoc()) {
+        $is_admin = (int) $row['is_admin']; // Cast to integer.
+    }
+}
 
 // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
 mysqli_close($connection);
@@ -86,7 +101,7 @@ mysqli_close($connection);
         <a href="../../../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../../about/index.php" onclick="closeNav()">About us</a>
         <?php
-        if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='../../../account/profile/index.php' onclick='closeNav()'>Profile</a>";
             echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
@@ -99,7 +114,7 @@ mysqli_close($connection);
             echo "<a href='../../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($isAdmin) == 1) {
+        if (isset($is_admin) == 1) {
             echo "<a href='' onclick='closeNav()'>Admin</a>";
         }
         ?>
@@ -177,7 +192,7 @@ mysqli_close($connection);
                     <div class="dropdown">
                         <div class="menu-button">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 // Online.
                                 echo "Account &#128994;";
                             }
@@ -190,7 +205,7 @@ mysqli_close($connection);
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
                                 echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
@@ -207,7 +222,7 @@ mysqli_close($connection);
                 </a>
             </div>
             <?php
-            if (isset($isAdmin) == 1) {
+            if (isset($is_admin) == 1) {
                 echo "<div>";
                 echo "<a class='black-hyperlink' href=''>";
                     echo "<div class='menu-button'>";

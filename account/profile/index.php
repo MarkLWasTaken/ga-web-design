@@ -5,17 +5,17 @@ session_start();
 include '../../php/connection.php';
 
 // Declare the variable to get the user ID and hide the warning message.
-@$userID = $_SESSION['id'];
+@$user_id = $_SESSION['id'];
 
 // Check if the guest or user logged in is an admin or not.
-if ($userID == null) {
+if ($user_id == null) {
     // Do nothing.
 }
 else {
     // Execute the query to get the user's role status.
-    $result = $connection->query("SELECT is_admin FROM users WHERE id = $userID");
+    $result = $connection->query("SELECT is_admin FROM users WHERE id = $user_id");
     while ($row = $result->fetch_assoc()) {
-        $isAdmin = (int) $row['is_admin']; // Cast to integer.
+        $is_admin = (int) $row['is_admin']; // Cast to integer.
     }
 }
 
@@ -56,7 +56,7 @@ mysqli_close($connection);
         <a href="../../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../about/index.php" onclick="closeNav()">About us</a>
         <?php
-        if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='#'>Profile</a>";
             echo "<a href='../../account/results/index.php' onclick='closeNav()'>Results</a>";
@@ -69,7 +69,7 @@ mysqli_close($connection);
             echo "<a href='../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($isAdmin) == 1) {
+        if (isset($is_admin) == 1) {
             echo "<a href='' onclick='closeNav()'>Admin</a>";
         }
         ?>
@@ -147,7 +147,7 @@ mysqli_close($connection);
                     <div class="dropdown">
                         <div class="menu-button">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 // Online.
                                 echo "Account &#128994;";
                             }
@@ -160,7 +160,7 @@ mysqli_close($connection);
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='#'>Profile</a>";
                                 echo "<a class='menu' href='../../account/results/index.php'>Results</a>";
@@ -177,7 +177,7 @@ mysqli_close($connection);
                 </a>
             </div>
             <?php
-            if (isset($isAdmin) == 1) {
+            if (isset($is_admin) == 1) {
                 echo "<div>";
                 echo "<a class='black-hyperlink' href=''>";
                     echo "<div class='menu-button'>";

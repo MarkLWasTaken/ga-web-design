@@ -5,17 +5,17 @@ session_start();
 include '../php/connection.php';
 
 // Declare the variable to get the user ID and hide the warning message.
-@$userID = $_SESSION['id'];
+@$user_id = $_SESSION['id'];
 
 // Check if the guest or user logged in is an admin or not.
-if ($userID == null) {
+if ($user_id == null) {
     // Do nothing.
 }
 else {
     // Execute the query to get the user's role status.
-    $result = $connection->query("SELECT is_admin FROM users WHERE id = $userID");
+    $result = $connection->query("SELECT is_admin FROM users WHERE id = $user_id");
     while ($row = $result->fetch_assoc()) {
-        $isAdmin = (int) $row['is_admin']; // Cast to integer.
+        $is_admin = (int) $row['is_admin']; // Cast to integer.
     }
 }
 
@@ -56,7 +56,7 @@ else {
         <a href="../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../about/index.php" onclick="closeNav()">About us</a>
         <?php
-        if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='../account/profile/index.php' onclick='closeNav()'>Profile</a>";
             echo "<a href='../account/results/index.php' onclick='closeNav()'>Results</a>";
@@ -69,7 +69,7 @@ else {
             echo "<a href='../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($isAdmin) == 1) {
+        if (isset($is_admin) == 1) {
             echo "<a href='#' onclick='closeNav()'>Admin</a>";
         }
         ?>
@@ -147,7 +147,7 @@ else {
                     <div class="dropdown">
                         <div class="menu-button">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 // Online.
                                 echo "Account &#128994;";
                             }
@@ -160,7 +160,7 @@ else {
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='../account/profile/index.php'>Profile</a>";
                                 echo "<a class='menu' href='../account/results/index.php'>Results</a>";
@@ -177,7 +177,7 @@ else {
                 </a>
             </div>
             <?php
-            if (isset($isAdmin) == 1) {
+            if (isset($is_admin) == 1) {
                 echo "<div>";
                 echo "<a class='black-hyperlink' href='#'>";
                     echo "<div class='menu-button'>";
@@ -196,7 +196,7 @@ else {
         <br>
 
         <div class="query-table">
-            <form action="index.php" method="get">
+            <form action="index.php" method="post">
                 <table>
                     <tr>
                         <th colspan="2" style="padding-left: 0; text-align: center;">Database Query</th>
@@ -206,58 +206,53 @@ else {
                         <td>
                             <!-- Combo box for list of tables found in the database. -->
                             <?php
-                                // Declare a variable for the query.
-                                $query_show_tables = "SHOW TABLES";
+                            // Declare a variable for the query.
+                            $query_show_tables = "SHOW TABLES";
 
-                                // Attempt to conenct to the DB, execute the query and get results.
-                                $result_show_tables = mysqli_query($connection, $query_show_tables);
+                            // Attempt to conenct to the DB, execute the query and get results.
+                            $result_show_tables = mysqli_query($connection, $query_show_tables);
 
-                                // Suppress the warning message epon loading the page first time.
-                                // Get the selected value from the combo box
-                                @$selected_table = $_GET['cbTableName'];
+                            // Suppress the warning message epon loading the page first time.
+                            // Get the selected value from the combo box.
+                            @$selected_table = $_POST['cbTableName'];
 
-                                // Display the combo box.
-                                echo '<select class="table-names-cb" name="cbTableName">';
-                                echo '<option value=""></option>';
+                            // Display the combo box.
+                            echo '<select class="table-names-cb" name="cbTableName">';
+                            echo '<option value=""></option>';
+
+                            // Check if 'selected_table' is not set.
+                            if (!isset($_SESSION['selected_table'])) {
                                 // Insert the each of the results into combo box.
                                 while ($table_name = $result_show_tables->fetch_assoc()) {
                                     // Check if the current table name is the selected one
                                     if ($table_name['Tables_in_' . $database] == $selected_table) {
-                                        echo '<option selected="selected" value="' . $table_name['Tables_in_' . $database] . '">' . $table_name['Tables_in_' . $database] . '</option>';
+                                        echo '<option selected="selected" value="' . $selected_table . '">' . $selected_table . '</option>';
                                     } else {
                                         echo '<option value="' . $table_name['Tables_in_' . $database] . '">' . $table_name['Tables_in_' . $database] . '</option>';
                                     }
                                 }
-                                echo '</select>';
 
-                                // Suppress the warning message.
-                                // Get the value from the combo box.
-                                // @$selected_table = $_GET['cbTableName'];
-                                // if (isset($_GET['cbTableName'])) {
-                                //     echo '<select class="table-names-cb" name="cbTableName">';
-                                //     while ($table_name = $result_show_tables->fetch_assoc()) {
-                                //         // Insert the each of the results into combo box.
-                                //         if ($table_name == $_GET['selected_table']) {
-                                //             echo '<option selected="selected" value="' . $table_name['Tables_in_' . $database] . '">' 
-                                //             . $table_name['Tables_in_' . $database] . 
-                                //             '</option>';
-                                //         } else {
-                                //         echo '<option value="' . $table_name['Tables_in_' . $database] . '">' 
-                                //             . $table_name['Tables_in_' . $database] . 
-                                //         '</option>';
-                                //         }
-                                //     }
-                                //     echo '</select>';
-                                // } else {
-                                //     // Insert the each of the results into combo box.
-                                //     echo '<select class="table-names-cb" name="cbTableName">';
-                                //     while ($table_name = $result_show_tables->fetch_assoc()) {
-                                //         echo '<option value="' . $table_name['Tables_in_' . $database] . '">' 
-                                //             . $table_name['Tables_in_' . $database] . 
-                                //         '</option>';
-                                //     }
-                                //     echo '</select>';
-                                // }
+                                // Store the variable in session.
+                                $_SESSION['selected_table'] = $selected_table;
+
+                            }
+                            // Check if 'selected_table' is set.
+                            else if (isset($_SESSION['selected_table'])) {
+                                // Insert the each of the results into combo box.
+                                while ($table_name = $result_show_tables->fetch_assoc()) {
+                                    // Check if the current table name is the selected one
+                                    if ($table_name['Tables_in_' . $database] == $selected_table) {
+                                        echo '<option selected="selected" value="' . $selected_table . '">' . $selected_table . '</option>';
+                                    } else {
+                                        echo '<option value="' . $table_name['Tables_in_' . $database] . '">' . $table_name['Tables_in_' . $database] . '</option>';
+                                    }
+                                }
+
+                                // Store the variable in session.
+                                $_SESSION['selected_table'] = $selected_table;
+
+                            }
+                            echo '</select>';
                             ?>
                         </td>
                     </tr>
@@ -271,47 +266,71 @@ else {
 
         <div class="hidden-div"></div>
 
+
+
+
+
+
+
         <div class="query-table">
-            <form action="index.php" method="post"></form>
+            <form action="index.php" method="post">
                 <table>
-                    <tr>
-                        <th colspan="2" style="padding-left: 0; text-align: center;">Table Query</th>
-                    </tr>
-                    <tr>
-                        <th>ID:</th>
-                        <td><input type="text" name="txtID" id=""></td>
-                    </tr>
-                    <tr>
-                        <th>First Name:</th>
-                        <td><input type="text" name="txtFName" id=""></td>
-                    </tr>
-                    <tr>
-                        <th>Last Name:</th>
-                        <td><input type="text" name="txtLName" id=""></td>
-                    </tr>
-                    <tr>
-                        <th>Email Address:</th>
-                        <td><input type="email" name="txtEmail" id=""></td>
-                    </tr>
-                    <tr>
-                        <th>Gender:</th>
-                        <td>
-                            <div class="radio-choice">
-                                <input type="radio" id="male" name="rdoGender" value="Male">
-                                <label for="male">Male</label><br>
-                                <input type="radio" id="female" name="rdoGender" value="Female">
-                                <label for="female">Female</label><br>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Country:</th>
-                        <td><input type="text" name="txtCountry" id=""></td>
-                    </tr>
-                    <tr>
-                        <th>Action:</th>
-                        <td><input type="submit" value="Search from the database"></td>
-                    </tr>
+                    <?php
+                    if ($_SESSION['selected_table'] == 'contact_us') {
+
+                    } else if ($_SESSION['selected_table'] == 'contact_us') {
+
+                    } else if ($_SESSION['selected_table'] == 'css_quiz_answers') {
+
+                    } else if ($_SESSION['selected_table'] == 'donations') {
+
+                    } else if ($_SESSION['selected_table'] == 'html_quiz_answers') {
+
+                    } else if ($_SESSION['selected_table'] == 'mailing_list') {
+
+                    } else if ($_SESSION['selected_table'] == 'users') {
+                        echo '<tr>';
+                            echo '<th colspan="2" style="padding-left: 0; text-align: center;"> Table Query</th>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>ID:</th>';
+                            echo '<td><input type="text" name="txtID" id=""></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>First Name:</th>';
+                            echo '<td><input type="text" name="txtFName" id=""></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>Last Name:</th>';
+                            echo '<td><input type="text" name="txtLName" id=""></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>Email Address:</th>';
+                            echo '<td><input type="email" name="txtEmail" id=""></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>Gender:</th>';
+                            echo '<td>';
+                                echo '<div class="radio-choice">';
+                                    echo '<input type="radio" id="male" name="rdoGender" value="Male">';
+                                    echo '<label for="male">Male</label><br>';
+                                    echo '<input type="radio" id="female" name="rdoGender" value="Female">';
+                                    echo '<label for="female">Female</label><br>';
+                                echo '</div>';
+                            echo '</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>Country:</th>';
+                            echo '<td><input type="text" name="txtCountry" id=""></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            echo '<th>Action:</th>';
+                            echo '<td><input type="submit" value="Search from the table"></td>';
+                        echo '</tr>';
+                        // Store the variable in session.
+                        $_SESSION['selected_table'] = $selected_table;    
+                    }
+                    ?><?php echo $selected_table; ?><br><?php echo $_SESSION['selected_table'];?>
                 </table>
             </form>
         </div>
@@ -368,7 +387,7 @@ else {
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['firstname']; ?></td>
                 <td><?php echo $row['lastname']; ?></td>
-                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['email_address']; ?></td>
                 <td><?php echo $row['password']; ?></td>
                 <td><?php echo $row['gender']; ?></td>
                 <td><?php echo $row['country']; ?></td>

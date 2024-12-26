@@ -5,14 +5,30 @@ session_start();
 include '../../../php/connection.php';
 
 // Assigns the variables fetch values from the text fields.
-$email = $_POST['txtEmail'];
-$password = $_POST['txtPassword'];
+// Suppress the warning messages.
+@$email = $_POST['txtEmail'];
+@$password = $_POST['txtPassword'];
 
 // Query to execute (Fetch data from the DB).
-$query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+$query = "SELECT * FROM users WHERE email_address='$email' AND password='$password'";
 
 // Decalre variable to attempt to connect to the DB and execute the SQL query.
 $result = mysqli_query($connection, $query);
+
+// Declare the variable to get the user ID and hide the warning message.
+@$user_id = $_SESSION['id'];
+
+// Check if the guest or user logged in is an admin or not.
+if ($user_id == null) {
+    // Do nothing.
+}
+else {
+    // Execute the query to get the user's role status.
+    $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
+    while ($row = $result->fetch_assoc()) {
+        $is_admin = (int) $row['is_admin']; // Cast to integer.
+    }
+}
 
 // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
 mysqli_close($connection);
@@ -51,7 +67,7 @@ mysqli_close($connection);
         <a href="../../../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../../about/index.php" onclick="closeNav()">About us</a>
         <?php
-        if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='../../../account/profile/index.php' onclick='closeNav()'>Profile</a>";
             echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
@@ -64,7 +80,7 @@ mysqli_close($connection);
             echo "<a href='../../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($isAdmin) == 1) {
+        if (isset($is_admin) == 1) {
             echo "<a href='' onclick='closeNav()'>Admin</a>";
         }
         ?>
@@ -142,7 +158,7 @@ mysqli_close($connection);
                     <div class="dropdown">
                         <div class="menu-button">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 // Online.
                                 echo "Account &#128994;";
                             }
@@ -155,7 +171,7 @@ mysqli_close($connection);
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
                                 echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
@@ -172,7 +188,7 @@ mysqli_close($connection);
                 </a>
             </div>
             <?php
-            if (isset($isAdmin) == 1) {
+            if (isset($is_admin) == 1) {
                 echo "<div>";
                 echo "<a class='black-hyperlink' href=''>";
                     echo "<div class='menu-button'>";
@@ -196,8 +212,8 @@ mysqli_close($connection);
                     // Verify if the record exists in the DB.
                     if (mysqli_num_rows($result) > 0) {
                         while($row=mysqli_fetch_assoc($result)){
-                            $_SESSION['id'] = $row['id'];
-                            $_SESSION['email'] = $row['email'];
+                            $_SESSION['user_id'] = $row['user_id'];
+                            $_SESSION['email_address'] = $row['email_address'];
                             $_SESSION['password'] = $row['password'];
                         }
                         loginSuccess();
