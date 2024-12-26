@@ -22,8 +22,8 @@ Account registration<br>
 Account registration process<br>
 Account login<br>
 Account login process<br>
+
 Profile<br>
 Results<br>
+Admin page (Manage database records, only accessible by admins)
 Account logout
-
-Admin page (Manage database records)
