@@ -1,15 +1,6 @@
 
-/* table, th, td {
-    border: 2px solid black;
-    border-radius: 10px;
-    border-collapse: collapse;
-}
-
-tr, th, td {
-    border-collapse: inherit;
-} */
-
-.query-table table {
+/* query-table-content-1 */
+.query-table-content-1 table {
     border: 2px solid black;
     border-collapse: separate;
     border-spacing: 0;
@@ -17,28 +8,83 @@ tr, th, td {
     overflow: hidden;
 }
 
-.query-table tr {
+.query-table-content-1 tr {
     height: 40px;
 }
 
-.query-table th, .query-table td {
+.query-table-content-1 th, .query-table-content-1 td {
     border: 1px solid black;
 }
 
-.query-table th {
+.query-table-content-1 th {
     width: 40%;
     padding-left: 10px;
     text-align: left;
 }
 
-/* .database-query-table-header th {
-    padding-left: 0;
-    text-align: center;
-} */
-
-.query-table td {
+.query-table-content-1 td {
     width: 375px;
     padding: 10px;
+}
+
+/* query-table-content-2 */
+.query-table-content-2 table {
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.query-table-content-2 tr {
+    height: 40px;
+}
+
+.query-table-content-2 th, .query-table-content-2 td {
+    border: 1px solid black;
+}
+
+.query-table-content-2 th {
+    width: 40%;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.query-table-content-2 td {
+    width: 375px;
+    padding: 10px;
+}
+
+/* query-table-content-3 */
+.query-table-content-3 table {
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.query-table-content-3 tr {
+    height: 40px;
+}
+
+.query-table-content-3 th, .query-table-content-3 td {
+    border: 1px solid black;
+}
+
+.query-table-content-3 th {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.query-table-content-3 td {
+    padding: 10px;
+}
+
+.query-table-email-field {
+    width: 350px;
+    font-size: 18px;
 }
 
 .table-names-cb {
@@ -47,11 +93,6 @@ tr, th, td {
 }
 
 input[type="text"] {
-    width: 350px;
-    font-size: 18px;
-}
-
-input[type="email"] {
     width: 350px;
     font-size: 18px;
 }
@@ -66,42 +107,11 @@ input[type="email"] {
 
 }
 
-/* th, td {
-    padding: 200px, 10px, 10px, 10px;
-} */
-
-/* input[type="submit"] {
-    width: 100%;
-    font-size: 18px;
-} */
-
 .hidden-div {
     height: 40px;
 }
 
-.manage-rows-table table {
-    border: 2px solid black;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.manage-rows-table tr {
-    height: 40px;
-}
-
-.manage-rows-table th, .manage-rows-table td {
-    border: 1px solid black;
-}
-
-.manage-rows-table th {
-    width: 100%;
-    padding-left: 10px;
-    text-align: left;
-}
-
-.manage-rows-table td {
-    width: 375px;
-    padding: 10px;
+.subscription-text-field {
+    width: 80%;
+    font-size: 16px;
 }
