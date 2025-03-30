@@ -1,26 +1,32 @@
+
+<!-- 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->
+
 <?php
-session_start();
+    // Start/Initialize the session.
+    session_start();
 
-// Include the PHP script for connecting to the database (DB).
-include '../php/connection.php';
+    // Include the PHP script for connecting to the database (DB).
+    include '../php/connection.php';
 
-// Declare the variable to get the user ID and hide the warning message.
-@$userID = $_SESSION['id'];
+    // Declare the variable to get the user ID and hide the warning message.
+    @$user_id = $_SESSION['user_id'];
 
-// Check if the guest or user logged in is an admin or not.
-if ($userID == null) {
-    // Do nothing.
-}
-else {
-    // Execute the query to get the user's role status.
-    $result = $connection->query("SELECT is_admin FROM users WHERE id = $userID");
-    while ($row = $result->fetch_assoc()) {
-        $is_admin = (int) $row['is_admin']; // Cast to integer.
+    // Check if the guest or user logged in is an admin or not.
+    if ($user_id != null) {
+        // Execute the query to get the user's role status.
+        $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
+        while ($row = $result->fetch_assoc()) {
+            $is_admin = (int) $row['is_admin']; // Cast to integer.
+        }
     }
-}
 
-// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-mysqli_close($connection);
+    // Ensure the connection to the DB is closed, with or without
+    // any code or query execution for security reasons.
+    mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -46,43 +52,55 @@ mysqli_close($connection);
 </head>
 
 <body>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
     <div id="side-navigation-menu" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close the side navigation menu.">&times;</a>
         <a href="../index.php" onclick="closeNav()">Home</a>
         <a href="#" onclick="closeNav()">Quizzes</a>
-        <a href="../tips/index.php" onclick="closeNav()">Tips</a>
+        <!-- <a href="../tips/index.php" onclick="closeNav()">Tips</a> -->
         <a href="../donations/index.php" onclick="closeNav()">Donations</a>
         <a href="../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../about/index.php" onclick="closeNav()">About us</a>
         <?php
-        if (isset($_SESSION['email_address'])) {
-            echo "User is logged in.";
-            echo "<a href='../account/profile/index.php' onclick='closeNav()'>Profile</a>";
-            echo "<a href='../account/results/index.php' onclick='closeNav()'>Results</a>";
-            echo "<a href='../account/logout/index.php' onclick='closeNav()'>Logout</a>";
-        }
-        else {
-            echo "<a href='javascript:void(0)' style='opacity: 0;'>Blank space</a>";
-            echo "<a href='javascript:void(0)'>User is not logged in.</a>";
-            echo "<a href='../account/login/index.php' onclick='closeNav()'>Login</a>";
-            echo "<a href='../account/registration/index.php' onclick='closeNav()'>Register</a>";
-        }
+            if (isset($_SESSION['email_address'])) {
+                echo "<a href='javascript:void(0)' style='opacity: 0;'>Blank space</a>";
+                echo "<a href='javascript:void(0)'>User is logged in.</a>";
+                echo "<a href='../account/profile/index.php' onclick='closeNav()'>Profile</a>";
+                // echo "<a href='../account/results/index.php' onclick='closeNav()'>Results</a>";
+                echo "<a href='../account/logout/index.php' onclick='closeNav()'>Logout</a>";
+            }
+            else {
+                echo "<a href='javascript:void(0)' style='opacity: 0;'>Blank space</a>";
+                echo "<a href='javascript:void(0)'>User is not logged in.</a>";
+                echo "<a href='../account/login/index.php' onclick='closeNav()'>Login</a>";
+                echo "<a href='../account/registration/index.php' onclick='closeNav()'>Register</a>";
+            }
 
-        if (isset($is_admin) == 1) {
-            echo "<a href='' onclick='closeNav()'>Admin</a>";
-        }
+            if (@$is_admin == 1) {
+                echo "<a href='../admin/index.php' onclick='closeNav()'>Admin</a>";
+            }
         ?>
     </div>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
 
     <div id="basket">
-        <div id="circle-header"></div>
+
+        <div style="position: absolute, sticky;">
+            <a class="black-hyperlink" href="javascript:void(0)" onclick="openNav()">
+                <div class="side-navigation-menu-button-mobile">
+                    <img src="../images/Hamburger_icon.svg" alt="Hamburger button icon for side navigation menu." title="Hamburger button icon for side navigation menu.">
+                </div>
+            </a>
+        </div>
 
         <div id="header" class="website-title">
-            <div id="header-2">
-                <br><br>
-                CodingAssessment
+            <div class="title-and-image-container">
+                <div class="title-and-image-content">
+                    <img class="header-image" src="../images/desktop-computer-svgrepo-com.svg" alt="Computer." title="Computer.">
+                </div>
+                <div class="title-and-image-content">
+                    CodingAssessment
+                </div>
             </div>
         </div>
 
@@ -112,13 +130,13 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a class="black-hyperlink" href="../tips/index.php">
                     <div class="menu-button">
                         Tips
                     </div>
                 </a>
-            </div>
+            </div> -->
             <div>
                 <a class="black-hyperlink" href="../donations/index.php">
                     <div class="menu-button">
@@ -140,63 +158,99 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
+            <!-- ================================================== -->
+            <!-- A large comment block by M1 -->
+
             <!-- TODO: Need help to fix the dropdown menu. -->
+            <!-- I intended to have a fade out effect for the menu, but it didn't work. -->
+            <!-- If I try to move the menu down, the button will work as usual, -->
+            <!-- but stops responding to to any hover movements at certain margins, -->
+            <!-- and it will not show up. -->
+
+            <!-- There is also another occurance where I changed the visibility -->
+            <!-- of the dropdown menu. The fade out effect works, but the menu -->
+            <!-- functions itself will still exist but invisible and will not disappear. -->
+            <!-- Leaving a hidden trace of invisible interacble dropdown menu.-->
+            <!-- I took so much time attempting to fix this issue, and still -->
+            <!-- therefore unable to fix the dropdown menu. So I left it as it is. -->
+
+            <!-- Instead, I took the opportunity to create a unique user session tracking. -->
+            <!-- These two buttons are affected by certain conditions and change the -->
+            <!-- The appearance of the buttons and the dropdown menu accordingly. -->
+            <!-- The function is simple. It will check if the user is logged in or not, -->
+            <!-- for the "Account" button. And if the user is and admin or not, -->
+            <!-- for the "Admin" button. -->
+            <!-- The button function of navigating to different pages will execute as usual. -->
+
+            <!-- Any improvements made to fix the visual artifact is greatly appreciated. -->
+            <!-- Please do credit your name here, if possible. -->
+            <!-- Thanks in advance. -->
+            <!-- ================================================== -->
             <div>
-                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <!-- Prevent the user from scrolling to the top of the page when -->
+                <!-- clicking on the "Username" button that holds the dropdown menu. -->
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
                         <div class="menu-button">
                             <?php
-                            if (isset($_SESSION['email_address'])) {
-                                // Online.
-                                echo "Account &#128994;";
-                            }
-                            else {
-                                // Offline.
-                                echo "Account &#128308;";
-                            }
+                                if (isset($_SESSION['email_address'])) {
+                                    // Online.
+                                    echo "Account &#128994;";
+                                }
+                                else {
+                                    // Offline.
+                                    echo "Account &#128308;";
+                                }
                             ?>
                         </div>
                         <!-- <br> -->
                         <div class="dropdown-content">
                             <?php
-                            if (isset($_SESSION['email_address'])) {
-                                echo "User is logged in.";
-                                echo "<a class='menu' href='../account/profile/index.php'>Profile</a>";
-                                echo "<a class='menu' href='../account/results/index.php'>Results</a>";
-                                echo "<a class='menu' href='../account/logout/index.php'>Logout</a>";
-                            }
-                            else {
-                                echo "User is not logged in.";
-                                echo "<a class='menu' href='../account/login/index.php'>Login</a>";
-                                echo "<a class='menu' href='../account/registration/index.php'>Register</a>";
-                            }
+                                if (isset($_SESSION['email_address'])) {
+                                    echo "User is logged in.";
+                                    echo "<a class='menu' href='../account/profile/index.php'>Profile</a>";
+                                    // echo "<a class='menu' href='../account/results/index.php'>Results</a>";
+                                    echo "<a class='menu' href='../account/logout/index.php'>Logout</a>";
+                                }
+                                else {
+                                    echo "User is not logged in.";
+                                    echo "<a class='menu' href='../account/login/index.php'>Login</a>";
+                                    echo "<a class='menu' href='../account/registration/index.php'>Register</a>";
+                                }
                             ?>
 		                </div>
                     </div>
                 </a>
             </div>
             <?php
-            if (isset($is_admin) == 1) {
-                echo "<div>";
-                echo "<a class='black-hyperlink' href=''>";
-                    echo "<div class='menu-button'>";
-                        echo "Admin";
-                    echo "</div>";
-                echo "</a>";
-            echo "</div>";
-            }
+                if (@$is_admin == 1) {
+                    // Use heredoc syntax to make the code readable and easier to maintain.
+                    // Very useful for handling large blocks of of codes.
+                    $html = <<<HTML
+                        <div>
+                            <a class='black-hyperlink' href='admin/index.php'>
+                                <div class='menu-button'>
+                                    Admin
+                                </div>
+                            </a>
+                        </div>
+                    HTML;
+                    echo $html;
+                }
             ?>
         </div>
 
         <br class="desktop-line-break">
 
-        <h1 class="page-title">Quizzes</h1>
+        <div class="page-title-container-2">
+            <div class="page-title-content">Quizzes</div>
+        </div>
 
         <br>
 
         <div class="html-example-container">
-            <img class="html-example-image" src="../images/HTML_element_content_categories.svg" alt="HTML elements examples" title="HTML elements examples">
+            <img class="html-example-image" src="../images/HTML_element_content_categories.svg" 
+                alt="HTML elements examples" title="HTML elements examples">
             HTML elements examples
         </div>
 
@@ -209,7 +263,8 @@ mysqli_close($connection);
                     <td class="quiz-description">Try the HTML quiz to test your knowledge.</td>
                 </tr>
             </table>
-            <img class="html-logo" src="../images/HTML5_logo_and_wordmark.svg" alt="HTML logo and wordmark" title="HTML logo and wordmark">
+            <img class="html-logo" src="../images/HTML5_logo_and_wordmark.svg" 
+                alt="HTML logo and wordmark" title="HTML logo and wordmark">
             <div class="attempt-quiz-btn-container">
                 <a href="../quizzes/html_quiz/index.php" class="attempt-quiz-btn-deco">
                     <div class="attempt-quiz-btn">
@@ -272,9 +327,9 @@ mysqli_close($connection);
                     <a class="white-hyperlink" href="#" class="white">
                         <li class="padding-bottom">Quizzes</li>
                     </a>
-                    <a class="white-hyperlink" href="../tips/index.php" class="white">
+                    <!-- <a class="white-hyperlink" href="../tips/index.php" class="white">
                         <li class="padding-bottom">Tips</li>
-                    </a>
+                    </a> -->
                     <a class="white-hyperlink" href="../donations/index.php" class="white">
                         <li class="padding-bottom">Donations</li>
                     </a>
@@ -301,3 +356,9 @@ mysqli_close($connection);
 </body>
 
 </html>
+
+<!-- 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->

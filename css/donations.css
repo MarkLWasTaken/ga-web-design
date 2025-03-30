@@ -1,4 +1,10 @@
 
+/* 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ */
+
 .donations-container {
     background-color: lightyellow;
     height: 225px;
@@ -10,3 +16,61 @@
     display: flex;
     justify-content: center; /* Center the links */
 }
+
+/* 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ */
+
+/* 
+Start of the lines/blocks of codes
+Developed by M5
+Student ID: Redacted
+ */
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #218838;
+}
+
+/* 
+End of the lines/blocks of codes
+Developed by M5
+Student ID: Redacted
+ */

@@ -1,71 +1,78 @@
+
+<!-- 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->
+
 <?php
-session_start();
+    // Start/Initialize the session.
+    session_start();
 
-// Include the PHP script for connecting to the database (DB).
-include '../../../php/connection.php';
+    // Include the PHP script for connecting to the database (DB).
+    include '../../../php/connection.php';
 
-// MySQLi statement.
-$mysqli = new mysqli($hostname, $username, $password, $database);
+    // MySQLi statement.
+    $mysqli = new mysqli($hostname, $username, $password, $database);
 
-// Set a the default timezone for date and time.
-date_default_timezone_set('Asia/Singapore');
+    // Set a the default timezone for date and time.
+    date_default_timezone_set('Asia/Singapore');
 
-// Set the date and time format.
-$dateCreated = date('Y/m/d h:i:s a', time());
+    // Set the date and time format.
+    $dateCreated = date('Y/m/d h:i:s a', time());
 
-// Retrieve the values from the account registration page.
-// Hide warning messages when the input fields are null or empty.
-@$fname = $_POST['txtFName'];
-@$lname = $_POST['txtLName'];
-@$email = $_POST['txtEmail'];
-@$password = $_POST['txtPassword'];
-@$gender = $_POST['rdoGender'];
-@$country = $_POST['selCountry'];
+    // Retrieve the values from the account registration page.
+    // Hide warning messages when the input fields are null or empty.
+    @$fname = $_POST['txtFName'];
+    @$lname = $_POST['txtLName'];
+    @$email = $_POST['txtEmail'];
+    @$password = $_POST['txtPassword'];
+    @$gender = $_POST['rdoGender'];
+    @$country = $_POST['selCountry'];
 
-// Query to execute for registering the account.
-$queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email_address`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
-            VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
+    // Query to execute for registering the account.
+    $queryRegister = "INSERT INTO `users`(`first_name`, `last_name`, `email_address`, `password`, `gender`, `country`, `is_admin`, `date_created`) 
+                VALUES ('$fname', '$lname', '$email', '$password', '$gender', '$country', 0, '$dateCreated')";
 
-// Query to execute and check if the email address exists in the DB
-// by counting the number of rows containing the email address.
-$queryEmailCheck = ("SELECT `email_address` FROM `users` WHERE `email_address` = '$email'");
+    // Query to execute and check if the email address exists in the DB
+    // by counting the number of rows containing the email address.
+    $queryEmailCheck = ("SELECT `email_address` FROM `users` WHERE `email_address` = '$email'");
 
-// Query to execute and check if the user credentials exists in the DB.
-// $queryUserCheck = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    // Query to execute and check if the user credentials exists in the DB.
+    // $queryUserCheck = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
-// Decalre variable to attempt to connect to the DB and execute the SQL query (Registration).
-// $resultRegister = mysqli_query($connection, $queryRegister);
+    // Decalre variable to attempt to connect to the DB and execute the SQL query (Registration).
+    // $resultRegister = mysqli_query($connection, $queryRegister);
 
-// Decalre variable to attempt to connect to the DB and execute the SQL query (Check email).
-$resultEmailCheck = mysqli_query($connection, $queryEmailCheck);
+    // Decalre variable to attempt to connect to the DB and execute the SQL query (Check email).
+    $resultEmailCheck = mysqli_query($connection, $queryEmailCheck);
 
-// Decalre variable to attempt to connect to the DB and execute the SQL query.
-// $resultUserCheck = mysqli_query($connection, $queryUserCheck);
+    // Decalre variable to attempt to connect to the DB and execute the SQL query.
+    // $resultUserCheck = mysqli_query($connection, $queryUserCheck);
 
-// For security reasons, prepared statements will be used to prevent SQL injections.
-// To check if the email address already exists in the database.
-// $getEmail = $mysqli->prepare("SELECT * FROM `users` WHERE email='$email'");
-// $getEmail->bind_param("s", $email);
-// $getEmail->execute();
-// $resultEmailCheck = $getEmail->get_result();
+    // For security reasons, prepared statements will be used to prevent SQL injections.
+    // To check if the email address already exists in the database.
+    // $getEmail = $mysqli->prepare("SELECT * FROM `users` WHERE email='$email'");
+    // $getEmail->bind_param("s", $email);
+    // $getEmail->execute();
+    // $resultEmailCheck = $getEmail->get_result();
 
-// Declare the variable to get the user ID and hide the warning message.
-@$user_id = $_SESSION['id'];
+    // Declare the variable to get the user ID and hide the warning message.
+    @$user_id = $_SESSION['user_id'];
 
-// Check if the guest or user logged in is an admin or not.
-if ($user_id == null) {
-    // Do nothing.
-}
-else {
-    // Execute the query to get the user's role status.
-    $result = $connection->query("SELECT is_admin FROM users WHERE id = $user_id");
-    while ($row = $result->fetch_assoc()) {
-        $is_admin = (int) $row['is_admin']; // Cast to integer.
+    // Check if the guest or user logged in is an admin or not.
+    if ($user_id != null) {
+        // Execute the query to get the user's role status.
+        $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
+        while ($row = $result->fetch_assoc()) {
+            $is_admin = (int) $row['is_admin']; // Cast to integer.
+        }
     }
-}
 
-// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-mysqli_close($connection);
+    // Users who are already logged are not allowed to access this page.
+    if (isset($_SESSION['email_address'])) {
+        header('Location: ../../../index.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -91,12 +98,12 @@ mysqli_close($connection);
 </head>
 
 <body>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
     <div id="side-navigation-menu" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close the side navigation menu.">&times;</a>
         <a href="../../../index.php" onclick="closeNav()">Home</a>
         <a href="../../../quizzes/index.php" onclick="closeNav()">Quizzes</a>
-        <a href="../../../tips/index.php" onclick="closeNav()">Tips</a>
+        <!-- <a href="../../../tips/index.php" onclick="closeNav()">Tips</a> -->
         <a href="../../../donations/index.php" onclick="closeNav()">Donations</a>
         <a href="../../../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../../about/index.php" onclick="closeNav()">About us</a>
@@ -104,7 +111,7 @@ mysqli_close($connection);
         if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='../../../account/profile/index.php' onclick='closeNav()'>Profile</a>";
-            echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
+            // echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
             echo "<a href='../../../account/logout/index.php' onclick='closeNav()'>Logout</a>";
         }
         else {
@@ -114,20 +121,31 @@ mysqli_close($connection);
             echo "<a href='../../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($is_admin) == 1) {
-            echo "<a href='' onclick='closeNav()'>Admin</a>";
+        if (@$is_admin == 1) {
+            echo "<a href='../../../admin/index.php' onclick='closeNav()'>Admin</a>";
         }
         ?>
     </div>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
 
     <div id="basket">
-        <div id="circle-header"></div>
+
+        <div style="position: absolute, sticky;">
+            <a class="black-hyperlink" href="javascript:void(0)" onclick="openNav()">
+                <div class="side-navigation-menu-button-mobile">
+                    <img src="../../../images/Hamburger_icon.svg" alt="Hamburger button icon for side navigation menu." title="Hamburger button icon for side navigation menu.">
+                </div>
+            </a>
+        </div>
 
         <div id="header" class="website-title">
-            <div id="header-2">
-                <br><br>
-                CodingAssessment
+            <div class="title-and-image-container">
+                <div class="title-and-image-content">
+                    <img class="header-image" src="../../../images/desktop-computer-svgrepo-com.svg" alt="Computer." title="Computer.">
+                </div>
+                <div class="title-and-image-content">
+                    CodingAssessment
+                </div>
             </div>
         </div>
 
@@ -157,13 +175,13 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a class="black-hyperlink" href="../../../tips/index.php">
                     <div class="menu-button">
                         Tips
                     </div>
                 </a>
-            </div>
+            </div> -->
             <div>
                 <a class="black-hyperlink" href="../../../donations/index.php">
                     <div class="menu-button">
@@ -185,9 +203,37 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
+            <!-- ================================================== -->
+            <!-- A large comment block by M1 -->
+
             <!-- TODO: Need help to fix the dropdown menu. -->
+            <!-- I intended to have a fade out effect for the menu, but it didn't work. -->
+            <!-- If I try to move the menu down, the button will work as usual, -->
+            <!-- but stops responding to to any hover movements at certain margins, -->
+            <!-- and it will not show up. -->
+
+            <!-- There is also another occurance where I changed the visibility -->
+            <!-- of the dropdown menu. The fade out effect works, but the menu -->
+            <!-- functions itself will still exist but invisible and will not disappear. -->
+            <!-- Leaving a hidden trace of invisible interacble dropdown menu.-->
+            <!-- I took so much time attempting to fix this issue, and still -->
+            <!-- therefore unable to fix the dropdown menu. So I left it as it is. -->
+
+            <!-- Instead, I took the opportunity to create a unique user session tracking. -->
+            <!-- These two buttons are affected by certain conditions and change the -->
+            <!-- The appearance of the buttons and the dropdown menu accordingly. -->
+            <!-- The function is simple. It will check if the user is logged in or not, -->
+            <!-- for the "Account" button. And if the user is and admin or not, -->
+            <!-- for the "Admin" button. -->
+            <!-- The button function of navigating to different pages will execute as usual. -->
+
+            <!-- Any improvements made to fix the visual artifact is greatly appreciated. -->
+            <!-- Please do credit your name here, if possible. -->
+            <!-- Thanks in advance. -->
+            <!-- ================================================== -->
             <div>
-                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <!-- Prevent the user from scrolling to the top of the page when -->
+                <!-- clicking on the "Username" button that holds the dropdown menu. -->
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
                         <div class="menu-button">
@@ -208,7 +254,7 @@ mysqli_close($connection);
                             if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
-                                echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
+                                // echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
                                 echo "<a class='menu' href='../../../account/logout/index.php'>Logout</a>";
                             }
                             else {
@@ -222,9 +268,9 @@ mysqli_close($connection);
                 </a>
             </div>
             <?php
-            if (isset($is_admin) == 1) {
+            if (@$is_admin == 1) {
                 echo "<div>";
-                echo "<a class='black-hyperlink' href=''>";
+                echo "<a class='black-hyperlink' href='../../../admin/index.php'>";
                     echo "<div class='menu-button'>";
                         echo "Admin";
                     echo "</div>";
@@ -243,88 +289,132 @@ mysqli_close($connection);
                 <?php
                     // Check if the email address contains invalid characters or is empty.
                     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '') {
-                        // Adjust the style according to the available content.
-                        echo "<style>
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        
+                        <!-- Adjust the style according to the available content. -->
+                        <style>
                                     #account-registration-success-container {
                                         height: 400px;
                                     }
                                     #account-registration-success-content {
                                         height: 350px;
                                     }
-                                </style>";
-                        echo "<h1 class='page-title'>Account registration failed!</h1>";
-                        echo "<br>";
-                        echo "<p>An error has occured while registering your account.</p>";
-                        echo "<p>The account you're trying to register with the email address<br>contains invalid characters.</p>";
-                        echo "<br>";
-                        echo "<p>Please try again later.</p>";
+                                </style>
+                        <h1 class='page-title'>Account registration failed!</h1>
+                        <br>
+                        <p>An error has occured while registering your account.</p>
+                        <p>The account you're trying to register with the email address<br>contains invalid characters.</p>
+                        <br>
+                        <p>Please try again later.</p>
+                        HTML;
+                        echo $html;
+
+                        // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                        mysqli_close($connection);
                     }
                     // Check if the string length is less than 8 characters.
                     else if (strlen($password) < 8) {
-                        // Adjust the style according to the available content.
-                        echo "<style>
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        
+                        <!-- Adjust the style according to the available content. -->
+                        <style>
                                     #account-registration-success-container {
                                         height: 400px;
                                     }
                                     #account-registration-success-content {
                                         height: 350px;
                                     }
-                                </style>";
-                        echo "<h1 class='page-title'>Account registration failed!</h1>";
-                        echo "<br>";
-                        echo "<p>An error has occured while registering your account.</p>";
-                        echo "<p>The account you're trying to register with the password<br>is less than 8 characters.</p>";
-                        echo "<br>";
-                        echo "<p>Please try again later.</p>";
+                                </style>
+                        <h1 class='page-title'>Account registration failed!</h1>
+                        <br>
+                        <p>An error has occured while registering your account.</p>
+                        <p>The account you're trying to register with the password<br>is less than 8 characters.</p>
+                        <br>
+                        <p>Please try again later.</p>
+                        HTML;
+                        echo $html;
+
+                        // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                        mysqli_close($connection);
                     }
                     // Check if the email address already exists in the database.
                     else if (mysqli_num_rows($resultEmailCheck)) {
-                        // Adjust the style according to the available content.
-                        echo "<style>
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+
+                        <!-- Adjust the style according to the available content. -->
+                        <style>
                                     #account-registration-success-container {
                                         height: 400px;
                                     }
                                     #account-registration-success-content {
                                         height: 350px;
                                     }
-                                </style>";
-                        echo "<h1 class='page-title'>Account registration failed!</h1>";
-                        echo "<br>";
-                        echo "<p>An error has occured while registering your account.</p>";
-                        echo "<p>The account you're trying to register already exists in the database.</p>";
-                        echo "<br>";
-                        echo "<p>Please register using a new email address and try again later.</p>";
+                                </style>
+                        <h1 class='page-title'>Account registration failed!</h1>
+                        <br>
+                        <p>An error has occured while registering your account.</p>
+                        <p>The account you're trying to register already exists in the database.</p>
+                        <br>
+                        <p>Please register using a new email address and try again later.</p>
+                        HTML;
+                        echo $html;
+
+                        // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                        mysqli_close($connection);
                     }
                     // Register the account details into the database.
                     else if (mysqli_query($connection, $queryRegister)) {
-                        echo "<h1>Account registration sucessful!</h1>";
-                        echo "<br>";
-                        echo "<p>The account details you have input has been succesfully registered!</p>";
-                        echo "<p>You'll be redirected to the login page in 5 seconds.</p>";
-                        echo '<meta http-equiv="refresh" content="5; url=../../../account/login/index.php">';
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+                        <h1>Account registration sucessful!</h1>
+                        <br>
+                        <p>The account details you have input has been succesfully registered!</p>
+                        <p>You'll be redirected to the login page in 5 seconds.</p>
+                        <meta http-equiv="refresh" content="5; url=../../../account/login/index.php">
+                        HTML;
+                        echo $html;
+
+                        // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                        mysqli_close($connection);
                     }
                     // If other errors were encountered.
                     else {
-                        // Adjust the style according to the available content.
-                        echo "<style>
+                        // Use heredoc syntax to make the code readable and easier to maintain.
+                        // Very useful for handling large blocks of of codes.
+                        $html = <<<HTML
+
+                        <!-- Adjust the style according to the available content. -->
+                        <style>
                                     #account-registration-success-container {
                                         height: 450px;
                                     }
                                     #account-registration-success-content {
                                         height: 500px;
                                     }
-                                </style>";
-                        echo "<h1 class='page-title'>Account registration failed!</h1>";
-                        echo "<br>";
-                        echo "<p>An error has occured while registering your account.</p>";
-                        echo "<p>There are a few resons why the registration may have failed.</p>";
-                        echo "<br>";
-                        echo "<p>1. The account you're trying to register is incomplete or contains invalid characters.</p>";
-                        echo "<p>2. The account you're trying to register already exists in the database.</p>";
-                        echo "<p>3. The server and the database is currently overloaded.</p>";
-                        echo "<p>4. Internal website error.</p>";
-                        echo "<br>";
-                        echo "<p>Please try again later.</p>";
+                                </style>
+                        <h1 class='page-title'>Account registration failed!</h1>
+                        <br>
+                        <p>An error has occured while registering your account.</p>
+                        <p>There are a few resons why the registration may have failed.</p>
+                        <br>
+                        <p>1. The account you're trying to register is incomplete or contains invalid characters.</p>
+                        <p>2. The account you're trying to register already exists in the database.</p>
+                        <p>3. The server and the database is currently overloaded.</p>
+                        <p>4. Internal website error.</p>
+                        <br>
+                        <p>Please try again later.</p>
+                        HTML;
+                        echo $html;
+
+                        // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
+                        mysqli_close($connection);
                     }
                 ?>
                 <br>
@@ -363,9 +453,9 @@ mysqli_close($connection);
                     <a class="white-hyperlink" href="../../../quizzes/index.php" class="white">
                         <li class="padding-bottom">Quizzes</li>
                     </a>
-                    <a class="white-hyperlink" href="../../../tips/index.php" class="white">
+                    <!-- <a class="white-hyperlink" href="../../../tips/index.php" class="white">
                         <li class="padding-bottom">Tips</li>
-                    </a>
+                    </a> -->
                     <a class="white-hyperlink" href="../../../donations/index.php" class="white">
                         <li class="padding-bottom">Donations</li>
                     </a>
@@ -392,3 +482,9 @@ mysqli_close($connection);
 </body>
 
 </html>
+
+<!-- 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->

@@ -1,37 +1,48 @@
+
+<!-- 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->
+
 <?php
-session_start();
+    // Start/Initialize the session.
+    session_start();
 
-// Include the PHP script for connecting to the database (DB).
-include '../../../php/connection.php';
+    // Include the PHP script for connecting to the database (DB).
+    include '../../../php/connection.php';
 
-// Assigns the variables fetch values from the text fields.
-// Suppress the warning messages.
-@$email = $_POST['txtEmail'];
-@$password = $_POST['txtPassword'];
+    // Assigns the variables fetch values from the text fields.
+    // Suppress the warning messages.
+    @$email = $_POST['txtEmail'];
+    @$password = $_POST['txtPassword'];
 
-// Query to execute (Fetch data from the DB).
-$query = "SELECT * FROM users WHERE email_address='$email' AND password='$password'";
+    // Query to execute (Fetch data from the DB).
+    $query = "SELECT * FROM users WHERE email_address='$email' AND password='$password'";
 
-// Decalre variable to attempt to connect to the DB and execute the SQL query.
-$result = mysqli_query($connection, $query);
+    // Decalre variable to attempt to connect to the DB and execute the SQL query.
+    $result = mysqli_query($connection, $query);
 
-// Declare the variable to get the user ID and hide the warning message.
-@$user_id = $_SESSION['id'];
+    // Declare the variable to get the user ID and hide the warning message.
+    @$user_id = $_SESSION['user_id'];
 
-// Check if the guest or user logged in is an admin or not.
-if ($user_id == null) {
-    // Do nothing.
-}
-else {
-    // Execute the query to get the user's role status.
-    $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
-    while ($row = $result->fetch_assoc()) {
-        $is_admin = (int) $row['is_admin']; // Cast to integer.
+    // Check if the guest or user logged in is an admin or not.
+    if ($user_id != null) {
+        // Execute the query to get the user's role status.
+        $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
+        while ($row = $result->fetch_assoc()) {
+            $is_admin = (int) $row['is_admin']; // Cast to integer.
+        }
     }
-}
 
-// Ensure the connection to the DB is closed, with or without any code execution for security reasons.
-mysqli_close($connection);
+    // Users who are already logged are now allowed to access this page.
+    if (isset($_SESSION['email_address'])) {
+        header('Location: ../../../index.php');
+    }
+
+    // Ensure the connection to the DB is closed, with or without
+    // any code or query execution for security reasons.
+    mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -57,12 +68,12 @@ mysqli_close($connection);
 </head>
 
 <body>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
     <div id="side-navigation-menu" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close the side navigation menu.">&times;</a>
         <a href="../../../index.php" onclick="closeNav()">Home</a>
         <a href="../../../quizzes/index.php" onclick="closeNav()">Quizzes</a>
-        <a href="../../../tips/index.php" onclick="closeNav()">Tips</a>
+        <!-- <a href="../../../tips/index.php" onclick="closeNav()">Tips</a> -->
         <a href="../../../donations/index.php" onclick="closeNav()">Donations</a>
         <a href="../../../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../../about/index.php" onclick="closeNav()">About us</a>
@@ -70,7 +81,7 @@ mysqli_close($connection);
         if (isset($_SESSION['email_address'])) {
             echo "User is logged in.";
             echo "<a href='../../../account/profile/index.php' onclick='closeNav()'>Profile</a>";
-            echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
+            // echo "<a href='../../../account/results/index.php' onclick='closeNav()'>Results</a>";
             echo "<a href='../../../account/logout/index.php' onclick='closeNav()'>Logout</a>";
         }
         else {
@@ -80,20 +91,31 @@ mysqli_close($connection);
             echo "<a href='../../../account/registration/index.php' onclick='closeNav()'>Register</a>";
         }
 
-        if (isset($is_admin) == 1) {
-            echo "<a href='' onclick='closeNav()'>Admin</a>";
+        if (@$is_admin == 1) {
+            echo "<a href='../../../admin/index.php' onclick='closeNav()'>Admin</a>";
         }
         ?>
     </div>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
 
     <div id="basket">
-        <div id="circle-header"></div>
+
+        <div style="position: absolute, sticky;">
+            <a class="black-hyperlink" href="javascript:void(0)" onclick="openNav()">
+                <div class="side-navigation-menu-button-mobile">
+                    <img src="../../../images/Hamburger_icon.svg" alt="Hamburger button icon for side navigation menu." title="Hamburger button icon for side navigation menu.">
+                </div>
+            </a>
+        </div>
 
         <div id="header" class="website-title">
-            <div id="header-2">
-                <br><br>
-                CodingAssessment
+            <div class="title-and-image-container">
+                <div class="title-and-image-content">
+                    <img class="header-image" src="../../../images/desktop-computer-svgrepo-com.svg" alt="Computer." title="Computer.">
+                </div>
+                <div class="title-and-image-content">
+                    CodingAssessment
+                </div>
             </div>
         </div>
 
@@ -123,13 +145,13 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a class="black-hyperlink" href="../../../tips/index.php">
                     <div class="menu-button">
                         Tips
                     </div>
                 </a>
-            </div>
+            </div> -->
             <div>
                 <a class="black-hyperlink" href="../../../donations/index.php">
                     <div class="menu-button">
@@ -151,9 +173,37 @@ mysqli_close($connection);
                     </div>
                 </a>
             </div>
+            <!-- ================================================== -->
+            <!-- A large comment block by M1 -->
+
             <!-- TODO: Need help to fix the dropdown menu. -->
+            <!-- I intended to have a fade out effect for the menu, but it didn't work. -->
+            <!-- If I try to move the menu down, the button will work as usual, -->
+            <!-- but stops responding to to any hover movements at certain margins, -->
+            <!-- and it will not show up. -->
+
+            <!-- There is also another occurance where I changed the visibility -->
+            <!-- of the dropdown menu. The fade out effect works, but the menu -->
+            <!-- functions itself will still exist but invisible and will not disappear. -->
+            <!-- Leaving a hidden trace of invisible interacble dropdown menu.-->
+            <!-- I took so much time attempting to fix this issue, and still -->
+            <!-- therefore unable to fix the dropdown menu. So I left it as it is. -->
+
+            <!-- Instead, I took the opportunity to create a unique user session tracking. -->
+            <!-- These two buttons are affected by certain conditions and change the -->
+            <!-- The appearance of the buttons and the dropdown menu accordingly. -->
+            <!-- The function is simple. It will check if the user is logged in or not, -->
+            <!-- for the "Account" button. And if the user is and admin or not, -->
+            <!-- for the "Admin" button. -->
+            <!-- The button function of navigating to different pages will execute as usual. -->
+
+            <!-- Any improvements made to fix the visual artifact is greatly appreciated. -->
+            <!-- Please do credit your name here, if possible. -->
+            <!-- Thanks in advance. -->
+            <!-- ================================================== -->
             <div>
-                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <!-- Prevent the user from scrolling to the top of the page when -->
+                <!-- clicking on the "Username" button that holds the dropdown menu. -->
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
                         <div class="menu-button">
@@ -174,7 +224,7 @@ mysqli_close($connection);
                             if (isset($_SESSION['email_address'])) {
                                 echo "User is logged in.";
                                 echo "<a class='menu' href='../../../account/profile/index.php'>Profile</a>";
-                                echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
+                                // echo "<a class='menu' href='../../../account/results/index.php'>Results</a>";
                                 echo "<a class='menu' href='../../../account/logout/index.php'>Logout</a>";
                             }
                             else {
@@ -188,9 +238,9 @@ mysqli_close($connection);
                 </a>
             </div>
             <?php
-            if (isset($is_admin) == 1) {
+            if (@$is_admin == 1) {
                 echo "<div>";
-                echo "<a class='black-hyperlink' href=''>";
+                echo "<a class='black-hyperlink' href='../../../admin/index.php'>";
                     echo "<div class='menu-button'>";
                         echo "Admin";
                     echo "</div>";
@@ -233,74 +283,98 @@ mysqli_close($connection);
                 // PHP for login messages to trigger when certain conditions are met.
                 // Function for successful login.
                 function loginSuccess() {
-                    echo "<h1 class='page-title'>Account login sucessful!</h1>";
-                    echo "<br>";
-                    echo "<p>The email address and password matches the database.</p>";
-                    echo "<p>You are now logged in to the website.</p>";
-                    echo "<p>You'll be redirected to the home page in 5 seconds.</p>";
-                    echo '<meta http-equiv="refresh" content="5; url=../../../index.php">';
+                    // Use heredoc syntax to make the code readable and easier to maintain.
+                    // Very useful for handling large blocks of of codes.
+                    $html = <<<HTML
+
+                    <h1 class='page-title'>Account login sucessful!</h1>
+                    <br>
+                    <p>The email address and password matches the database.</p>
+                    <p>You are now logged in to the website.</p>
+                    <p>You'll be redirected to the home page in 5 seconds.</p>
+                    <meta http-equiv="refresh" content="5; url=../../../index.php">
+                    HTML;
+                    echo $html;
                 }
 
                 // Function to check if the email address contains invalid characters or is empty.
                 function validateEmail() {
+                    // Use heredoc syntax to make the code readable and easier to maintain.
+                    // Very useful for handling large blocks of of codes.
+                    $html = <<<HTML
+
                     // Adjust the style according to the available content.
-                    echo "<style>
+                    <style>
                                 #account-login-process-container {
                                     height: 450px;
                                 }
                                 #account-login-process-content {
                                     height: 400px;
                                 }
-                            </style>";
-                    echo "<h1 class='page-title'>Account login failed!</h1>";
-                    echo "<br>";
-                    echo "<p>An error has occured while logging in to your account.</p>";
-                    echo "<p>The account you're trying to login with the email address<br>contains invalid characters.</p>";
-                    echo "<br>";
-                    echo "<p>Please try again later.</p>";
+                            </style>
+                    <h1 class='page-title'>Account login failed!</h1>
+                    <br>
+                    <p>An error has occured while logging in to your account.</p>
+                    <p>The account you're trying to login with the email address<br>contains invalid characters.</p>
+                    <br>
+                    <p>Please try again later.</p>
+                    HTML;
+                    echo $html;
                 }
 
                 // Function to check if the password length is less than 8.
                 function passwordLessThan8() {
+                    // Use heredoc syntax to make the code readable and easier to maintain.
+                    // Very useful for handling large blocks of of codes.
+                    $html = <<<HTML
+
                     // Adjust the style according to the available content.
-                    echo "<style>
+                    <style>
                                 #account-login-process-container {
                                     height: 450px;
                                 }
                                 #account-login-process-content {
                                     height: 400px;
                                 }
-                            </style>";
-                    echo "<h1 class='page-title'>Account login failed!</h1>";
-                    echo "<br>";
-                    echo "<p>An error has occured while logging in to your account.</p>";
-                    echo "<p>The account you're trying to login with the password<br>is less than 8 characters.</p>";
-                    echo "<br>";
-                    echo "<p>Please try again later.</p>";
+                            </style>
+                    <h1 class='page-title'>Account login failed!</h1>
+                    <br>
+                    <p>An error has occured while logging in to your account.</p>
+                    <p>The account you're trying to login with the password<br>is less than 8 characters.</p>
+                    <br>
+                    <p>Please try again later.</p>
+                    HTML;
+                    echo $html;
                 }
 
                 // Function for other errors encountered.
                 function otherErrors() {
+                    // Use heredoc syntax to make the code readable and easier to maintain.
+                    // Very useful for handling large blocks of of codes.
+                    $html = <<<HTML
+
                     // Adjust the style according to the available content.
-                    echo "<style>
+                    <style>
                                 #account-login-process-container {
                                     height: 600px;
                                 }
                                 #account-login-process-content {
                                     height: 550px;
                                 }
-                            </style>";
-                    echo "<h1 class='page-title'>Account login failed!</h1>";
-                    echo "<br>";
-                    echo "<p>An error has occured while logging in to your account.</p>";
-                    echo "<p>There are a few resons why the login may have failed.</p>";
-                    echo "<br>";
-                    echo "<p>1. It does not match with the database records, or account does not exist.</p>";
-                    echo "<p>2. Incomplete details or contains invalid characters.</p>";
-                    echo "<p>3. The website and the database is currently overloaded.</p>";
-                    echo "<p>4. Internal website error.</p>";
-                    echo "<br>";
-                    echo "<p>Please try again later.</p>";
+                            </style>
+                    <h1 class='page-title'>Account login failed!</h1>
+                    <br>
+                    <p>An error has occured while logging in to your account.</p>
+                    <p>There are a few resons why the login may have failed.</p>
+                    <br>
+                    <p>1. It does not match with the database records, or account does not exist.</p>
+                    <p>2. Incomplete details or contains invalid characters.</p>
+                    <p>3. The website and the database is currently overloaded.</p>
+                    <p>4. Internal website error.</p>
+                    <br>
+                    <p>Please try again later.</p>
+                    HTML;
+                    echo $html;
                 }
                 ?>
                 <br>
@@ -339,9 +413,9 @@ mysqli_close($connection);
                     <a class="white-hyperlink" href="../../../quizzes/index.php" class="white">
                         <li class="padding-bottom">Quizzes</li>
                     </a>
-                    <a class="white-hyperlink" href="../../../tips/index.php" class="white">
+                    <!-- <a class="white-hyperlink" href="../../../tips/index.php" class="white">
                         <li class="padding-bottom">Tips</li>
-                    </a>
+                    </a> -->
                     <a class="white-hyperlink" href="../../../donations/index.php" class="white">
                         <li class="padding-bottom">Donations</li>
                     </a>
@@ -368,3 +442,9 @@ mysqli_close($connection);
 </body>
 
 </html>
+
+<!-- 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->

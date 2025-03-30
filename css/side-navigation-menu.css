@@ -1,8 +1,14 @@
 
+/* 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ */
+
 /*
-Referece:
+Reference:
 https://www.w3schools.com/howto/howto_js_sidenav.asp
-*/
+ */
 
 /* The side navigation menu */
 .sidenav {
@@ -16,7 +22,7 @@ https://www.w3schools.com/howto/howto_js_sidenav.asp
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    z-index: 6; /* Set the z-index higher, so the other elements will not overlap the menu */
+    z-index: 7; /* Set the z-index higher, so the other elements will not overlap the menu */
 }
 
 /* The navigation menu links */
@@ -50,6 +56,12 @@ https://www.w3schools.com/howto/howto_js_sidenav.asp
 }
 
 /*
-Referece:
+Reference:
 https://www.w3schools.com/howto/howto_js_sidenav.asp
-*/
+ */
+
+/* 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ */

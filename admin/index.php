@@ -1,29 +1,32 @@
-<?php
-session_start();
 
-    // Users who are not website administrators (admins) are not allowed to access this page.
-    // if(isset($_SESSION['is_admin'])){
-    //     // Do nothing.
-    // } else {
-    //     header('Location: index.php');
-    // }
+<!-- 
+Start of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->
+
+<?php
+    // Start/Initialize the session.
+    session_start();
 
     // Include the PHP script for connecting to the database (DB).
     include '../php/connection.php';
 
     // Declare the variable to get the user ID and hide the warning message.
-    @$user_id = $_SESSION['id'];
+    @$user_id = $_SESSION['user_id'];
 
     // Check if the guest or user logged in is an admin or not.
-    if ($user_id == null) {
-        // Do nothing.
-    }
-    else {
+    if ($user_id != null) {
         // Execute the query to get the user's role status.
-        $result = $connection->query("SELECT is_admin FROM users WHERE id = $user_id");
+        $result = $connection->query("SELECT is_admin FROM users WHERE user_id = $user_id");
         while ($row = $result->fetch_assoc()) {
             $is_admin = (int) $row['is_admin']; // Cast to integer.
         }
+    }
+
+    // Users who are not website administrators (admins) are not allowed to access this page.
+    if ($is_admin != 1) {
+        header('Location: ../index.php');
     }
 ?>
 
@@ -36,7 +39,7 @@ session_start();
     <meta name="keywords" content="HTML and CSS">
     <meta name="author" content="CodingAssessment Group">
 
-    <title>CodingAssessment - About us</title>
+    <title>CodingAssessment - Admin</title>
 
     <!-- Cascading Style Sheets -->
     <link href="../css/styles.css" rel="stylesheet">
@@ -50,12 +53,12 @@ session_start();
 </head>
 
 <body>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
     <div id="side-navigation-menu" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close the side navigation menu.">&times;</a>
         <a href="../index.php" onclick="closeNav()">Home</a>
         <a href="../quizzes/index.php" onclick="closeNav()">Quizzes</a>
-        <a href="../tips/index.php" onclick="closeNav()">Tips</a>
+        <!-- <a href="../tips/index.php" onclick="closeNav()">Tips</a> -->
         <a href="../donations/index.php" onclick="closeNav()">Donations</a>
         <a href="../contact/index.php" onclick="closeNav()">Contact us</a>
         <a href="../../about/index.php" onclick="closeNav()">About us</a>
@@ -63,7 +66,7 @@ session_start();
             if (isset($_SESSION['email_address'])) {
                 echo "User is logged in.";
                 echo "<a href='../account/profile/index.php' onclick='closeNav()'>Profile</a>";
-                echo "<a href='../account/results/index.php' onclick='closeNav()'>Results</a>";
+                // echo "<a href='../account/results/index.php' onclick='closeNav()'>Results</a>";
                 echo "<a href='../account/logout/index.php' onclick='closeNav()'>Logout</a>";
             }
             else {
@@ -73,20 +76,31 @@ session_start();
                 echo "<a href='../account/registration/index.php' onclick='closeNav()'>Register</a>";
             }
 
-            if (isset($is_admin) == 1) {
-                echo "<a href='#' onclick='closeNav()'>Admin</a>";
+            if (@$is_admin == 1) {
+                echo "<a href='../admin/index.php' onclick='closeNav()'>Admin</a>";
             }
         ?>
     </div>
-    <!-- Referece: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
+    <!-- Reference: https://www.w3schools.com/howto/howto_js_sidenav.asp -->
 
     <div id="basket">
-        <div id="circle-header"></div>
+
+        <div style="position: absolute, sticky;">
+            <a class="black-hyperlink" href="javascript:void(0)" onclick="openNav()">
+                <div class="side-navigation-menu-button-mobile">
+                    <img src="../images/Hamburger_icon.svg" alt="Hamburger button icon for side navigation menu." title="Hamburger button icon for side navigation menu.">
+                </div>
+            </a>
+        </div>
 
         <div id="header" class="website-title">
-            <div id="header-2">
-                <br><br>
-                CodingAssessment
+            <div class="title-and-image-container">
+                <div class="title-and-image-content">
+                    <img class="header-image" src="../images/desktop-computer-svgrepo-com.svg" alt="Computer." title="Computer.">
+                </div>
+                <div class="title-and-image-content">
+                    CodingAssessment
+                </div>
             </div>
         </div>
 
@@ -116,13 +130,13 @@ session_start();
                     </div>
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a class="black-hyperlink" href="../tips/index.php">
                     <div class="menu-button">
                         Tips
                     </div>
                 </a>
-            </div>
+            </div> -->
             <div>
                 <a class="black-hyperlink" href="../donations/index.php">
                     <div class="menu-button">
@@ -144,9 +158,37 @@ session_start();
                     </div>
                 </a>
             </div>
+            <!-- ================================================== -->
+            <!-- A large comment block by M1 -->
+
             <!-- TODO: Need help to fix the dropdown menu. -->
+            <!-- I intended to have a fade out effect for the menu, but it didn't work. -->
+            <!-- If I try to move the menu down, the button will work as usual, -->
+            <!-- but stops responding to to any hover movements at certain margins, -->
+            <!-- and it will not show up. -->
+
+            <!-- There is also another occurance where I changed the visibility -->
+            <!-- of the dropdown menu. The fade out effect works, but the menu -->
+            <!-- functions itself will still exist but invisible and will not disappear. -->
+            <!-- Leaving a hidden trace of invisible interacble dropdown menu.-->
+            <!-- I took so much time attempting to fix this issue, and still -->
+            <!-- therefore unable to fix the dropdown menu. So I left it as it is. -->
+
+            <!-- Instead, I took the opportunity to create a unique user session tracking. -->
+            <!-- These two buttons are affected by certain conditions and change the -->
+            <!-- The appearance of the buttons and the dropdown menu accordingly. -->
+            <!-- The function is simple. It will check if the user is logged in or not, -->
+            <!-- for the "Account" button. And if the user is and admin or not, -->
+            <!-- for the "Admin" button. -->
+            <!-- The button function of navigating to different pages will execute as usual. -->
+
+            <!-- Any improvements made to fix the visual artifact is greatly appreciated. -->
+            <!-- Please do credit your name here, if possible. -->
+            <!-- Thanks in advance. -->
+            <!-- ================================================== -->
             <div>
-                <!-- Prevent user from scrolling the page to the top when clicking on the "Username" button -->
+                <!-- Prevent the user from scrolling to the top of the page when -->
+                <!-- clicking on the "Username" button that holds the dropdown menu. -->
                 <a class="black-hyperlink" href="javascript:void(0)">
                     <div class="dropdown">
                         <div class="menu-button">
@@ -167,7 +209,7 @@ session_start();
                                 if (isset($_SESSION['email_address'])) {
                                     echo "User is logged in.";
                                     echo "<a class='menu' href='../account/profile/index.php'>Profile</a>";
-                                    echo "<a class='menu' href='../account/results/index.php'>Results</a>";
+                                    // echo "<a class='menu' href='../account/results/index.php'>Results</a>";
                                     echo "<a class='menu' href='../account/logout/index.php'>Logout</a>";
                                 }
                                 else {
@@ -181,7 +223,7 @@ session_start();
                 </a>
             </div>
             <?php
-                if (isset($is_admin) == 1) {
+                if (@$is_admin == 1) {
                     echo "<div>";
                     echo "<a class='black-hyperlink' href='#'>";
                         echo "<div class='menu-button'>";
@@ -887,17 +929,26 @@ session_start();
 
                                 // Insert the each of the results into the table.
                                 while($row = mysqli_fetch_assoc($result_table_rows)) {
-                                        echo '<tr>';
-                                            echo "<td>{$row['user_id']}</td>";
-                                            echo "<td>{$row['first_name']}</td>";
-                                            echo "<td>{$row['last_name']}</td>";
-                                            echo "<td>{$row['email_address']}</td>";
-                                            echo "<td>{$row['gender']}</td>";
-                                            echo "<td>{$row['country']}</td>";
-                                            echo "<td>{$row['is_admin']}</td>";
-                                            echo "<td><a href=\"edit.php?id={$row['user_id']}\">Edit</a></td>";
-                                            echo "<td><a href=\"delete.php?id={$row['user_id']}\">Delete</a></td>";
-                                        echo '</tr>';
+                                    // Use heredoc syntax to make the code readable and easier to maintain.
+                                    // Very useful for handling large blocks of of codes.
+                                    $html = <<<HTML
+                                        <tr>
+                                        <td>{$row['user_id']}</td>
+                                        <td>{$row['first_name']}</td>
+                                        <td>{$row['last_name']}</td>
+                                        <td>{$row['email_address']}</td>
+                                        <td>{$row['gender']}</td>
+                                        <td>{$row['country']}</td>
+                                        <td>{$row['is_admin']}</td>
+                                        <td><a href="javascript:void(0)">Edit</a></td>
+                                        <td><a href="javascript:void(0)">Delete</a></td>
+                                        <!-- 
+                                        <td><a href="edit_user.php?id={$row['user_id']}\">Edit</a></td>
+                                        <td><a href="delete_user.php?id={$row['user_id']}\">Delete</a></td>
+                                         -->
+                                        </tr>
+                                    HTML;
+                                    echo $html;
                                 }
                             }
                             // Ensure the connection to the DB is closed, with or without any code execution for security reasons.
@@ -937,9 +988,9 @@ session_start();
                     <a class="white-hyperlink" href="../quizzes/index.php" class="white">
                         <li class="padding-bottom">Quizzes</li>
                     </a>
-                    <a class="white-hyperlink" href="../tips/index.php" class="white">
+                    <!-- <a class="white-hyperlink" href="../tips/index.php" class="white">
                         <li class="padding-bottom">Tips</li>
-                    </a>
+                    </a> -->
                     <a class="white-hyperlink" href="../donations/index.php" class="white">
                         <li class="padding-bottom">Donations</li>
                     </a>
@@ -966,3 +1017,9 @@ session_start();
 </body>
 
 </html>
+
+<!-- 
+End of the lines/blocks of codes
+Developed by M1
+Student ID: Redacted
+ -->
